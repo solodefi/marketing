@@ -1,30 +1,33 @@
 ActiveAdmin.register User do
-	permit_params :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :photo_url, :country, :user_type
+	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type
 
 	index do 
 		selectable_column
 		column :user_type
 		column :first_name
 		column :last_name
+		column :title
 		column :email
-		column :country_name
+		column :location
 		actions
 	end
 
 	filter :email
-	filter :country, as: :select
+	filter :title
+	filter :location, as: :select
 
 	form do |f|
 		f.inputs "User Details" do
 			f.input :user_type, as: :select, collection: User.user_types.keys, include_blank: false
 			f.input :first_name
 			f.input :last_name
+			f.input :title
 			f.input :email
 			f.input :password
 			f.input :password_confirmation
 			f.input :birthday
-			f.input :photo_url
-			f.input :country
+			f.input :image
+			f.input :location, include_blank: false
 		end
 		actions
 	end

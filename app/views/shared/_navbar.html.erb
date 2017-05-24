@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default">
+  <div class = "container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        <img alt="Brand" src="<%= image_url('logo.png') %>">
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1" >
+      <form class="navbar-form navbar-left">
+        <div class="col-lg-12">
+            <div class="input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Freelancers</a></li>
+                  <li><a href="#">Jobs</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+              <input type="text" class="form-control mr-sm-2" aria-label="Search" placeholder="Search">
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+      </form>
+      <ul class="nav navbar-nav">
+        <li><a href="<%= about_index_path %>">About</a></li>
+        <li><a href="<%= how_it_works_about_index_path %>">How it works</a></li>
+        <li><a href="<%= contact_us_about_index_path %>">Contact us</a></li>
+      </ul>
+      <% if user_signed_in?%>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to 'LOG OUT', destroy_user_session_path, method: :delete%>
+        </li>
+      </ul>
+      <% else %>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to 'SIGN UP', new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to 'LOG IN', new_user_session_path %>
+        </li>
+      </ul>
+      <% end %>
+      
+    </div><!-- /.navbar-collapse -->
+  </div>
+</nav>

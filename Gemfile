@@ -38,10 +38,18 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+
 gem 'activeadmin', github: 'activeadmin'
 gem 'activeadmin_addons'
-gem 'ransack', github: 'activerecord-hackery/ransack'
+
 gem 'country_select'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'font-awesome-sass'
+
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

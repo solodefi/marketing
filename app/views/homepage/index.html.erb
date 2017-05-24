@@ -1,0 +1,151 @@
+  <body>
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <div class="cover-container">
+            <img class="cover-image" src="<%= image_url('cover/cover1.jpg') %>" alt="First slide">
+          </div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Imagine. Think. Build.</h1>
+              <p>The only marketplace for all your residential property needs</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="cover-container">
+            <img class="cover-image" src="<%= image_url('cover/cover2.jpg') %>" alt="Second slide">
+          </div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Planning an extension?  Home improvements?  Or simply moving house?</h1>
+              <p>Find the professionals to take your project from start to finish</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="cover-container">
+            <img class="cover-image" src="<%= image_url('cover/cover3.jpg') %>" alt="Third slide">
+          </div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1></h1>
+              <p>Choose from 100s of qualified structural engineers, surveyors, architects and designers ready to assist you with your project</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="cover-container">
+            <img class="cover-image" src="<%= image_url('cover/cover4.jpg') %>" alt="Fourth slide">
+          </div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1></h1>
+              <p>Hire professionals directly.  Compare job proposals.  Review previous jobs and feedback</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="cover-container">
+            <img class="cover-image" src="<%= image_url('cover/cover5.jpg') %>" alt="Fifth slide">
+          </div>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Be the boss!  Manage your own project.</h1>
+              <p>Pick your design team and build relationships through Structured Thinking</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <form class="col-sm-12" id="startForm">
+          <div class="form-group col-sm-4 col-sm-offset-4">
+            <div class="input-group">
+
+              <input type="text" class="form-control" placeholder="What do you need to get done?">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-warning">START NOW</button>
+              </span>
+            </div>
+          </div>
+        </form>
+
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Structural engineers<span class="text-muted"></span></h2>
+          <p class="lead">Find strutural engineers for loft conversion, knock through, extension, new build, survey, inspection, and more</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="<%= image_url('feature/feature1.jpg') %>">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">Surveyors<span class="text-muted"></span></h2>
+          <p class="lead">Hire surveyors for valuation/home buyers report, insurance claim, party wall</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" src="<%= image_url('feature/feature1.jpg') %>">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Architects<span class="text-muted"></span></h2>
+          <p class="lead">Get services of planning application, extension/new build, interior design, drawings/computer modelling </p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="<%= image_url('feature/feature1.jpg') %>">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2017 Structured Thinking &middot; <a href="/">Privacy</a> &middot; <a href="/">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+  </body>
+  </html>

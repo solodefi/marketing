@@ -19,13 +19,13 @@
   <tbody>
     <% @jobs.each do |job| %>
       <tr>
-        <td><%= job.categories %></td>
+        <td><%= job.str_categories %></td>
         <td><%= job.title %></td>
         <td><%= job.price %></td>
         <td><%= job.description %></td>
         <td><%= job.start_date %></td>
         <td><%= job.end_date %></td>
-        <td><%= job.posted_by %></td>
+        <td><%= job.user %></td>
         <td><%= link_to 'Show', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
