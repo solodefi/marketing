@@ -1,6 +1,26 @@
 Rails.application.routes.draw do
-  
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  devise_for :users, controllers: {
+        sessions: 'users/sessions',
+        registrations: 'users/registrations',
+        passwords: 'users/passwords',
+        confirmations: 'users/confirmations',
+        unlocks: 'users/unlocks'
+      }
+
+  authenticated :user do
+    root :to => 'homepage#welcome'
+  end
+
+  root 'homepage#index'
+
   resources :homepage, :only => [:index] do
+    collection do
+      get :welcome
+    end
   end
 
   resources :about, :only => [:index] do 
@@ -13,15 +33,6 @@ Rails.application.routes.draw do
   resources :proposals
   resources :categories
   resources :jobs
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  devise_for :users, controllers: {
-        sessions: 'users/sessions',
-        registrations: 'users/registrations',
-        passwords: 'users/passwords',
-        confirmations: 'users/confirmations',
-        unlocks: 'users/unlocks'
-      }
 
-  root 'homepage#index'
+  
 end

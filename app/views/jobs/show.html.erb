@@ -2,7 +2,7 @@
 
 <p>
   <strong>Categories:</strong>
-  <%= @job.categories %>
+  <%= @job.str_categories %>
 </p>
 
 <p>
@@ -32,7 +32,7 @@
 
 <p>
   <strong>Posted by:</strong>
-  <%= @job.posted_by %>
+  <%= @job.user %>
 </p>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |

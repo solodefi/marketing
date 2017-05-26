@@ -1,52 +1,61 @@
-<%= form_for(job) do |f| %>
-  <% if job.errors.any? %>
+<div class = "container" id = "signup_form">
+  <div class="col-lg-6">
+  </br>
+  <h1 align="center">Get Your Job Done!</h1>
+  </br>
+  <%= form_for(job) do |f| %>
+    <% if job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
 
       <ul>
-      <% job.errors.full_messages.each do |message| %>
+        <% job.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
+    <% end %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+
+        <div class="form-group">
+          <%= f.label "What do you need to get done?" %>
+          <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a Structural Engineer" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label "Pick Categories" %>
+          </br>
+          <%= f.select :category_ids, options_for_select(Category.all), {}, {class: "form-control"} %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label "Enter the price (£)" %>
+          <%= f.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label "Description of requirements" %>
+          <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I want to extend my house and repair the some parts", rows: 20 %>
+        </div>
+
+        <div class="form-group" >
+          <%= f.label "When do you start?" %>
+          <%= f.date_field :start_date, class: "form-control"%>
+        </div>
+
+        <div class="form-group" >
+          <%= f.label "End by?" %>
+          <%= f.date_field :end_date, class: "form-control"%>
+        </div>
+       
+        <br>
+        <div class="form-group" id = "button">
+          <%= f.submit class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :categories %>
-    <%= f.text_area :categories %>
   </div>
-
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.number_field :price %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.date_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_date %>
-    <%= f.date_select :end_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :posted_by %>
-    <%= f.number_field :posted_by %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
