@@ -50,7 +50,7 @@ class JobsController < EndUserBaseController
 
   # Strong params
   def job_params
-    params.require(:job).permit(:title, :price, :description, :start_date, :end_date, :user_id, :category_ids => [])
+    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :category_ids => [])
   end
 
 end

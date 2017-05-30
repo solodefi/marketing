@@ -1,6 +1,6 @@
 ActiveAdmin.register Job do
 
-	permit_params :title, :price, :description, :start_date, :end_date, :user_id, category_ids: []
+	permit_params :title, :price, :description, :postcode, :start_date, :end_date, :user_id, category_ids: []
 
 	index do
 		selectable_column
@@ -10,6 +10,7 @@ ActiveAdmin.register Job do
 		end
 		column :price
 		column :description
+		column :postcode
 		column :start_date
 		column :end_date
 		column "Posted By" do |job|
@@ -24,6 +25,7 @@ ActiveAdmin.register Job do
 			row('Category') {|job| job.str_categories}
 			row :price
 			row :description
+			row :postcode
 			row :start_date
 			row :end_date
 			row('Posted By') {|job| job.user}
@@ -34,6 +36,7 @@ ActiveAdmin.register Job do
 
 	filter :title
 	filter :price
+	filter :postcode
 	filter :user, :label => "Posted By"
 	# filter :category_ids, as: :select, :collection => Category.all, display_name: :title, label: "Category"
 
@@ -42,6 +45,7 @@ ActiveAdmin.register Job do
 			f.input :title
 			f.input :price
 			f.input :description
+			f.input :postcode
 			f.input :start_date
 			f.input :end_date
 			f.input :user, :label => "Posted By", :include_blank => false

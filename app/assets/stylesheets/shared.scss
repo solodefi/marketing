@@ -3,7 +3,6 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-bottom: 40px;
   color: #5a5a5a;
 }
 
@@ -32,8 +31,11 @@ body {
 .cover-container img {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  max-width: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: auto;
+  height: calc(100% + 1px);
+  margin: 0 auto;
   opacity: 0.5;
 }
 
@@ -48,15 +50,7 @@ body {
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 500px;
   background-color: #777;
-}
-.carousel-inner > .item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 500px;
 }
 
 /* Declare position of GET STARTED form */
@@ -164,11 +158,52 @@ ul.nav li.active a {
   .carousel-caption p {
     margin-bottom: 20px;
     font-size: 21px;
-    line-height: 1.4;
+  }
+
+  .cover-container img {
+    width: 100%;
+    height: auto;
   }
 
   .featurette-heading {
     font-size: 50px;
+  }
+}
+
+@media (max-width: 767px) {
+
+  /* Carousel caption and description responsive */
+  .carousel-caption h1 {
+    font-size: 21px;
+  }
+
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  /* Get Started From Responsive */
+  #startForm .input-group-btn, #startForm .input-group .form-control {
+    display: block;
+    margin-bottom: 10px;
+    clear: both;
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  #startForm .input-group {
+    display: block;
+  }
+
+  #startForm {
+    position:absolute;
+    top:20%;
+    width: 100%;
+  }
+
+  #startForm .input-group-btn > .btn {
+    width: 100%;
+    border-radius: 4px;
   }
 }
 
@@ -178,5 +213,3 @@ ul.nav li.active a {
     margin-top: 120px;
   }
 }
-
-

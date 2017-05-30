@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519013346) do
+ActiveRecord::Schema.define(version: 20170526133331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170519013346) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.text     "category_ids", default: ""
+    t.string   "postcode",     default: ""
   end
 
   create_table "locations", force: :cascade do |t|
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 20170519013346) do
     t.string   "country",                default: ""
     t.string   "title",                  default: ""
     t.integer  "location_id"
+    t.string   "postcode",               default: ""
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

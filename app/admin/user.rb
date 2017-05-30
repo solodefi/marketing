@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type
+	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type, :postcode
 
 	index do 
 		selectable_column
@@ -8,13 +8,14 @@ ActiveAdmin.register User do
 		column :last_name
 		column :title
 		column :email
-		column :location
+		column :postcode
 		actions
 	end
 
 	filter :email
 	filter :title
-	filter :location, as: :select
+	filter :postcode
+	# filter :location, as: :select
 
 	form do |f|
 		f.inputs "User Details" do
@@ -27,7 +28,8 @@ ActiveAdmin.register User do
 			f.input :password_confirmation
 			f.input :birthday
 			f.input :image
-			f.input :location, include_blank: false
+			f.input :postcode
+			# f.input :location, include_blank: false
 		end
 		actions
 	end

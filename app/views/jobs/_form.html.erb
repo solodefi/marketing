@@ -1,5 +1,5 @@
 <div class = "container" id = "signup_form">
-  <div class="col-lg-6">
+  <div class="col-lg">
   </br>
   <h1 align="center">Get Your Job Done!</h1>
   </br>
@@ -21,13 +21,13 @@
 
         <div class="form-group">
           <%= f.label "What do you need to get done?" %>
-          <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a Structural Engineer" %>
+          <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a Structural Engineer" %>          
         </div>
 
         <div class="form-group">
-          <%= f.label "Pick Categories" %>
+          <%= f.label "Pick Category" %>
           </br>
-          <%= f.select :category_ids, options_for_select(Category.all), {}, {class: "form-control"} %>
+          <%= f.select :category_ids, Category.all.collect{|p| [p.title, p.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
         </div>
 
         <div class="form-group">
@@ -38,6 +38,11 @@
         <div class="form-group">
           <%= f.label "Description of requirements" %>
           <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I want to extend my house and repair the some parts", rows: 20 %>
+        </div>
+
+        <div class="form-group" >
+          <%= f.label "Location" %>
+          <%= f.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode" %>
         </div>
 
         <div class="form-group" >

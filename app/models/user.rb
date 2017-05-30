@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :jobs, dependent: :destroy
   has_many :proposals, dependent: :destroy
 
-  belongs_to :location, validate: true
+  belongs_to :location
 
   enum user_type: [ :Client, :Freelancer ]
 

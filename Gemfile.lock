@@ -283,6 +283,7 @@ DEPENDENCIES
   rails (~> 5.0.2)
   ransack!
   sass-rails (~> 5.0)
+  select2-rails
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

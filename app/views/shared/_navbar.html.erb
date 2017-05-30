@@ -35,6 +35,18 @@
       </ul>
       <% if user_signed_in?%>
       <ul class="nav navbar-nav navbar-right">
+        <% if current_user.user_type == 'Client' %>
+          <li>
+            <%= link_to 'POST A JOB', new_job_path, method: :get%>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to 'BROWSE JOB', posts_index_path, method: :delete%>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to 'MY JOBS', jobs_path, method: :get%>
+        </li>
         <li>
           <%= link_to 'LOG OUT', destroy_user_session_path, method: :delete%>
         </li>
