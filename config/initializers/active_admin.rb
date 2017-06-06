@@ -305,3 +305,7 @@ class ActiveAdmin::ResourceController
     success.html {redirect_to collection_url}
   end
 end
+
+module ActiveAdmin::ViewHelpers
+  include ApplicationHelper
+end

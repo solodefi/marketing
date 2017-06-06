@@ -33,7 +33,7 @@
         <li><a href="<%= how_it_works_about_index_path %>">How it works</a></li>
         <li><a href="<%= contact_us_about_index_path %>">Contact us</a></li>
       </ul>
-      <% if user_signed_in?%>
+      <% if user_signed_in? %>
       <ul class="nav navbar-nav navbar-right">
         <% if current_user.user_type == 'Client' %>
           <li>
@@ -41,7 +41,7 @@
           </li>
         <% else %>
           <li>
-            <%= link_to 'BROWSE JOB', posts_index_path, method: :delete%>
+            <%= link_to 'BROWSE JOB', new_job_path, method: :get%>
           </li>
         <% end %>
         <li>

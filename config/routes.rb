@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
+  
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  post '/change_categories' =>'professions#change_categories'
 
   devise_for :users, controllers: {
         sessions: 'users/sessions',
@@ -20,6 +23,8 @@ Rails.application.routes.draw do
   resources :homepage, :only => [:index] do
     collection do
       get :welcome
+      get :getstarted
+      post :signup_user_and_post_job
     end
   end
 

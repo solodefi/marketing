@@ -1,3 +1,50 @@
 // Place all the styles related to the Jobs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Set Job Table View's border line, background color, margin
+-------------------------------------------------- */
+.job-container {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid lightgrey;
+	background-color: #f8f8f8;
+}
+
+/* Set Job Table cell's underline
+-------------------------------------------------- */
+.job-cell {
+	margin: 2px;
+	border-bottom: 1px solid lightgrey;
+}
+
+/* Set Job cell's p tag margin
+-------------------------------------------------- */
+.job-cell p {
+	margin-top: 6px;
+}
+
+/* Set job description to show less text if it's large
+-------------------------------------------------- */
+.job-description {
+	line-height: 1.2em;
+	max-height: 3.6em;
+	overflow: hidden;
+}
+
+/* Set job title link color
+-------------------------------------------------- */
+.job-cell a, .job-cell a:visited {
+	font-size: 1.5em;
+	color: var(--orange-color);
+}
+
+.job-cell a:hover, .job-cell a:active {
+	color: var(--orange-color);
+}
+
+/* Job cell's p tag, set gray for alter information
+-------------------------------------------------- */
+.job-alter {
+	color: gray;
+}

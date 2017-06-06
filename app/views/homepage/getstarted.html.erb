@@ -1,0 +1,117 @@
+<div class = "container" id = "getstarted_form">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+    <%= form_for(@user, url: signup_user_and_post_job_homepage_index_path) do |u| %>
+
+    <%= fields_for @job do |j| %>
+    </br>
+    <h2 align="center">Get Your Job Done!</h2>
+    </br>
+
+    <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+      <ul>
+        <% @job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= j.label "What do you need to get done?" %>
+      <%= j.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a Structural Engineer" %>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <%= j.label "Profession" %>
+        </br>
+        <%= j.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#job_profession_id').val()"}, :job_category_ids) } %>
+      </div>
+      <div class="form-group col-md-6">
+        <%= j.label "Category" %>
+        </br>
+        <% if j.object.profession_id.present? && !j.object.new_record? %>
+          <%= j.select :category_ids, Profession.find_by_id(j.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
+        <% else %>
+          <%= j.select :category_ids, {}, {}, {multiple: true, class: "dropdown form-control"} %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= j.label "Enter the price (£)" %>
+      <%= j.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
+    </div>
+
+    <div class="form-group">
+      <%= j.label "Description of requirements" %>
+      <%= j.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I want to extend my house and the some parts", rows: 20 %>
+    </div>
+
+    <div class="form-group" >
+      <%= j.label "Location" %>
+      <%= j.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode" %>
+    </div>
+
+    <div class="form-group" >
+      <%= j.label "When do you start?" %>
+      <%= j.date_field :start_date, class: "form-control" %>
+    </div>
+
+    <div class="form-group" >
+      <%= j.label "End by?" %>
+      <%= j.date_field :end_date, class: "form-control"%>
+    </div>
+        
+    <br>
+    <% end %>
+
+    <h2 align="center">Please input your details</h2>
+    </br>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <%= u.label :first_name, "FIRST NAME" %>
+        <%= u.text_field :first_name, autofocus: true, class: "form-control", placeholder: "FirstName"  %>
+      </div>  
+      <div class="form-group col-lg-6">
+        <%= u.label :last_name, "LAST NAME" %>
+        <%= u.text_field :last_name, autofocus: true, class: "form-control" , placeholder: "LastName"  %>
+      </div>  
+    </div>
+    
+    <div class="row">
+      <div class="form-group col-lg-12" >
+        <%= u.label :Email, "EMAIL ADDRESS" %>
+        <%= u.email_field :email, autofocus: true, class: "form-control" , placeholder: "Email: example@domain.com" %>
+      </div>  
+    </div>
+    
+    <div class="row">
+      <div class="form-group col-lg-12">
+        <%= u.label :password, "PASSWORD" %>
+        <%= u.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Create a password" %>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+      </div>  
+    </div>
+    
+    <div class="row">
+      <div class="form-group col-lg-12">
+        <%= u.label :password_confirmation, "PASSWORD CONFIRMATION" %>
+        <%= u.password_field :password_confirmation, autocomplete: "off", class: "form-control" , placeholder: "Password confirm" %>
+      </div>  
+    </div>
+
+    <div class="form-group" id = "button">
+      <%= u.submit "POST A JOB", class: "btn btn-success" %>
+    </div>
+
+    <% end %>
+    
+    </div>
+  </div>
+</div>

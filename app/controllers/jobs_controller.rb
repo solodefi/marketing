@@ -4,7 +4,11 @@ class JobsController < EndUserBaseController
 
   # GET /jobs
 	def index
-		@jobs = current_user.jobs
+    if current_user.user_type == 'Client'
+      @jobs = current_user.jobs.order("created_at DESC")
+    else
+    end
+		
 	end
 
   # GET /jobs/1
@@ -50,7 +54,7 @@ class JobsController < EndUserBaseController
 
   # Strong params
   def job_params
-    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :category_ids => [])
+    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :profession_id, :category_ids => [])
   end
 
 end

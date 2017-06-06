@@ -2,6 +2,10 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
+:root{
+  --orange-color:#ff9600;
+}
+
 body {
   color: #5a5a5a;
 }
@@ -107,15 +111,15 @@ body {
 }
 
 ul.nav li a, ul.nav li a:visited {
-	color: #ff9600;
+	color: var(--orange-color);
 }
 
 ul.nav li a:hover, ul.nav li a:active {
-	color: #ff9600;
+	color: var(--orange-color);
 }
 
 ul.nav li.active a {
-	color: #ff9600;
+	color: var(--orange-color);
 }
 
 /* RESPONSIVE CSS

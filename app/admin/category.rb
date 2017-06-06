@@ -1,6 +1,5 @@
 ActiveAdmin.register Category do
-
-	# belongs_to :Job
-	permit_params :title, :description
+ 
+	permit_params :title, :description, :profession_id
 
 end

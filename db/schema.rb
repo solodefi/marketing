@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526133331) do
+ActiveRecord::Schema.define(version: 20170602100845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,26 +47,34 @@ ActiveRecord::Schema.define(version: 20170526133331) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title",       default: ""
-    t.text     "description", default: ""
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "title",         default: ""
+    t.text     "description",   default: ""
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "profession_id", default: 0,  null: false
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.string   "title",        default: ""
-    t.integer  "price",        default: 0
-    t.text     "description",  default: ""
+    t.string   "title",         default: ""
+    t.integer  "price",         default: 0
+    t.text     "description",   default: ""
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "user_id",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.text     "category_ids", default: ""
-    t.string   "postcode",     default: ""
+    t.integer  "user_id",       default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "category_ids",  default: ""
+    t.string   "postcode",      default: ""
+    t.integer  "profession_id", default: 0
   end
 
   create_table "locations", force: :cascade do |t|
+    t.string   "title",      default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "professions", force: :cascade do |t|
     t.string   "title",      default: ""
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
