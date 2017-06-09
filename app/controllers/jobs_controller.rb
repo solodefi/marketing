@@ -7,6 +7,11 @@ class JobsController < EndUserBaseController
     if current_user.user_type == 'Client'
       @jobs = current_user.jobs.order("created_at DESC")
     else
+      @jobs = Array.new
+      current_user.proposals.each do |p|
+        @jobs.append(p.job)
+      end
+      @jobs.sort! { |a,b| b.created_at <=> a.created_at}
     end
 		
 	end
@@ -43,6 +48,10 @@ class JobsController < EndUserBaseController
 
   # DELETE /jobs/1
   def destroy
+  end
+
+  def browse
+    @jobs = Job.all.order("created_at DESC")
   end
 
   private

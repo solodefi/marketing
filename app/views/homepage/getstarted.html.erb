@@ -21,7 +21,7 @@
 
     <div class="form-group">
       <%= j.label "What do you need to get done?" %>
-      <%= j.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a Structural Engineer" %>
+      <%= j.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a basement conversion" %>
     </div>
 
     <div class="row">
@@ -42,13 +42,13 @@
     </div>
 
     <div class="form-group">
-      <%= j.label "Enter the price (£)" %>
+      <%= j.label "Estimated budget (£)" %>
       <%= j.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
     </div>
 
     <div class="form-group">
       <%= j.label "Description of requirements" %>
-      <%= j.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I want to extend my house and the some parts", rows: 20 %>
+      <%= j.text_area :description, autofocus: true, class: "form-control" , placeholder: "Please provide a description of your job.  A more detailed description will attract better proposals", rows: 20 %>
     </div>
 
     <div class="form-group" >
@@ -62,10 +62,10 @@
     </div>
 
     <div class="form-group" >
-      <%= j.label "End by?" %>
+      <%= j.label "End by? (optional)" %>
       <%= j.date_field :end_date, class: "form-control"%>
     </div>
-        
+    
     <br>
     <% end %>
 

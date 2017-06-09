@@ -41,15 +41,24 @@
           </li>
         <% else %>
           <li>
-            <%= link_to 'BROWSE JOB', new_job_path, method: :get%>
+            <%= link_to 'BROWSE JOB', browse_jobs_path, method: :get%>
           </li>
         <% end %>
         <li>
           <%= link_to 'MY JOBS', jobs_path, method: :get%>
         </li>
         <li>
-          <%= link_to 'LOG OUT', destroy_user_session_path, method: :delete%>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:#ff9600"><%= current_user %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'PROFILE', edit_user_registration_path %></li>
+            <li><%= link_to 'SETTINGS', settings_path %></li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <%= link_to 'LOG OUT', destroy_user_session_path, method: :delete%>
+            </li>
+          </ul>
         </li>
+        
       </ul>
       <% else %>
       <ul class="nav navbar-nav navbar-right">

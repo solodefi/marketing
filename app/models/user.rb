@@ -4,8 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Jobs that you posted
   has_many :jobs, dependent: :destroy
+  # Proposals that you sent
   has_many :proposals, dependent: :destroy
+  # Jobs that I worked/be working on, as a freelancer
+  has_many :freelancing_jobs, :class_name => "Job", :foreign_key => :freelancer_id, dependent: :destroy
+
+  serialize :skills, Array
 
   belongs_to :location
 

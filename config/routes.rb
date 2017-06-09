@@ -14,6 +14,14 @@ Rails.application.routes.draw do
         unlocks: 'users/unlocks'
       }
 
+  devise_scope :user do 
+    get '/fill_profile', :action => 'fill_profile', :controller => 'users/registrations'
+    post '/update_profile_after_sign_up', :action => 'update_profile_after_sign_up', :controller => 'users/registrations'
+
+    get '/settings', :action => 'settings', :controller => 'users/registrations'
+    patch '/update_settings', :action => 'update_settings', :controller => 'users/registrations'
+  end
+
   authenticated :user do
     root :to => 'homepage#welcome'
   end
@@ -37,7 +45,12 @@ Rails.application.routes.draw do
 
   resources :proposals
   resources :categories
-  resources :jobs
+
+  resources :jobs do
+    collection do
+      get :browse
+    end
+  end
 
   
 end

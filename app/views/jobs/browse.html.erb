@@ -1,0 +1,59 @@
+
+<div class="container">
+
+  <div class="col-md-12 job-container">
+    <% @jobs.each do |job| %>
+      <div class="job-cell">
+        <div class="row">
+          <div class="col-md-9">
+            <a>
+              <%= link_to job.title, new_proposal_path(:job_id => job.id), method: :get%>
+            </a>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <span class="job-alter">Budget : </span>
+            <span>£<%= job.price %></span>
+          </div>
+          <div class="col-md-3">
+            <span class="glyphicon glyphicon-calendar"></span>
+            <span class="job-alter">Time : </span>
+            <span><%= job.time_duration %></span>
+          </div>
+          <div class="col-md-3">
+            <span class="glyphicon glyphicon-time"></span>
+            <span class="job-alter">Posted</span>
+            <span><%= time_ago_in_words(job.created_at) %></span>
+            <span class="job-alter">ago</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="job-description"><%= job.description %></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <span class="job-alter">Category : </span>
+            <span><%= job.str_categories %></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="job-alter">Proposals : </span>
+            <span><%= job.proposals.count %></span>
+          </div> 
+          <div class="col-md-6">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="job-alter">Location : </span>
+            <span><%= job.postcode %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+</div>

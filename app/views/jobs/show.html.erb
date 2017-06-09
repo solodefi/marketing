@@ -1,39 +1,57 @@
-<p id="notice"><%= notice %></p>
+<%= link_to 'Edit', edit_job_path(@job) %>
 
-<p>
-  <strong>Categories:</strong>
-  <%= @job.str_categories %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @job.title %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @job.price %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @job.description %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @job.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @job.end_date %>
-</p>
-
-<p>
-  <strong>Posted by:</strong>
-  <%= @job.user %>
-</p>
-
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+<div class="container">
+  <p>
+    <%= @job.title %>
+  </p>
+  <div class="job-details">
+    <div class="row"> 
+      <div class="col-md-9">
+        <a>
+          <%= link_to "< Back", :back%>
+        </a>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <span class="job-alter">Budget : </span>
+        <span>£<%= @job.price %></span>
+      </div>
+      <div class="col-md-3">
+        <span class="glyphicon glyphicon-calendar"></span>
+        <span class="job-alter">Time : </span>
+        <span><%= @job.time_duration %></span>
+      </div>
+      <div class="col-md-3">
+        <span class="glyphicon glyphicon-time"></span>
+        <span class="job-alter">Posted</span>
+        <span><%= time_ago_in_words(@job.created_at) %></span>
+        <span class="job-alter">ago</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <p class="job-description-details"><%= @job.description %></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="job-alter">Category : </span>
+        <span><%= @job.str_categories %></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <span class="glyphicon glyphicon-record"></span>
+        <span class="job-alter">Proposals : </span>
+        <span><%= @job.proposals.count %></span>
+      </div> 
+      <div class="col-md-6">
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <span class="job-alter">Location : </span>
+        <span><%= @job.postcode %></span>
+      </div>
+    </div>
+  </div>
+</div>

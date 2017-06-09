@@ -18,9 +18,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    resource.update_without_password(user_params)
+
+    redirect_to path_to_redirect
+  end
+
+  # Settings - Email/Password Update
+  def settings
+    @user = current_user
+  end
+
+  # PUT, update user settings
+  def update_settings
+    @user = current_user
+    @user.update_with_password(update_password_params)
+
+    redirect_to path_to_redirect
+  end
 
   # DELETE /resource
   # def destroy
@@ -36,12 +51,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  # Show Fill Profile Form for freelancer
+  def fill_profile
+    @user = current_user
+  end
+
+  # Update the profile and redirect to freelancer's home page
+  def update_profile_after_sign_up
+    @user = current_user
+    @user.update_without_password(user_params)
+
+    redirect_to browse_jobs_url
+  end
+
   protected
   
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    path_to_redirect
+    if current_user.user_type == "Client"
+      return path_to_redirect
+    elsif current_user.user_type == "Freelancer"
+      return fill_profile_url
+    end
   end
+
+
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
@@ -53,13 +87,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
   # end
 
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def user_params
+    params.require(:user).permit({ roles: [] }, :title, :first_name, :last_name, :location_id, :email, :password, :password_confirmation, :image, :user_type, :postcode, :overview, skills: [] )
+  end
+
+  def update_password_params
+    params.require(:user).permit(:password, :password_confirmation, :current_password)
+  end
 end

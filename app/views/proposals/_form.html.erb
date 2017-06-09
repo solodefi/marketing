@@ -1,47 +1,47 @@
-<%= form_for(proposal) do |f| %>
-  <% if proposal.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
+<div class = "container" id = "job_form">
+  <div class="col-lg">
+  <%= form_for(proposal) do |f| %>
+    <% if proposal.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
 
-      <ul>
-      <% proposal.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% proposal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+
+        <div class="form-group">
+          <%= f.label "Desired price (£)" %>
+          <%= f.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label "Cover Letter" %>
+          <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I've been working as a structural engineer for 10 years and have rich experiences.", rows: 20 %>
+        </div>
+
+        <div class="form-group" >
+          <%= f.label "When can you start?" %>
+          <%= f.date_field :start_date, class: "form-control" %>
+        </div>
+
+        <div class="form-group" >
+          <%= f.label "End by?" %>
+          <%= f.date_field :end_date, class: "form-control"%>
+        </div>
+        
+        <br>
+        <div class="form-group" id = "button">
+          <%= f.submit class: "btn btn-success" %>
+        </div>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :job_id %>
-    <%= f.number_field :job_id %>
   </div>
-
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.number_field :price %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.date_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :end_date %>
-    <%= f.date_select :end_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :user_id %>
-    <%= f.number_field :user_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

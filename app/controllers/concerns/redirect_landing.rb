@@ -4,7 +4,7 @@ module RedirectLanding
     if current_user.user_type == "Client"
         return jobs_url
     elsif current_user.user_type == "Freelancer"
-        return categories_url
+        return browse_jobs_url
     end
   end
 

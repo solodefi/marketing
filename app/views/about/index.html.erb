@@ -29,7 +29,9 @@
 						Working as a freelancer offers many attractive benefits over permanent employment.  The freedom to work as much or as little as suits you, the flexibility to fit your working hours around your lifestyle, and complete control of the jobs you select.  Whether you choose to freelance full-time, or as a way of supplementing your income, Structured Thinking puts you in control of your career, introduces you to new customers, and enables you to build your network amongst the growing freelancer community.
 					</p>
 					<hr/>
+					<% if !user_signed_in? %>
 					<h3>Join the community. <%= link_to 'Sign up today for FREE!', new_user_registration_path%> </h3>
+					<% end %>
 				</div>
 				
 			</div>

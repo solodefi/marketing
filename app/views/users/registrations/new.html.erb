@@ -18,12 +18,13 @@
             <%= f.radio_button :user_type, "Freelancer" %>
             <span>Work as a Freelancer</span>
           </div>
+
         </div>
 
         <div class="form-group" >
           <%= image_tag('avatar.png', id: "img-preview", width: 150, height: 150, alt: "", class: "") %>
           <br/><br/>
-          <%= f.label :image, 'Add a pic?'%>
+          <%= f.label :image, 'Add a pic?' %>
           <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
         </div>
 

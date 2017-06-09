@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602100845) do
+ActiveRecord::Schema.define(version: 20170609031114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,22 @@ ActiveRecord::Schema.define(version: 20170602100845) do
     t.integer  "profession_id", default: 0,  null: false
   end
 
+  create_table "client_reviews", force: :cascade do |t|
+    t.integer  "job_id",     default: 0, null: false
+    t.float    "score"
+    t.text     "notes"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "freelancer_reviews", force: :cascade do |t|
+    t.integer  "job_id",     default: 0, null: false
+    t.float    "score"
+    t.text     "notes"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.string   "title",         default: ""
     t.integer  "price",         default: 0
@@ -63,9 +79,13 @@ ActiveRecord::Schema.define(version: 20170602100845) do
     t.integer  "user_id",       default: 0
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.text     "category_ids",  default: ""
+    t.text     "category_ids"
     t.string   "postcode",      default: ""
     t.integer  "profession_id", default: 0
+    t.integer  "status",        default: 0,  null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.integer  "freelancer_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -113,6 +133,8 @@ ActiveRecord::Schema.define(version: 20170602100845) do
     t.string   "title",                  default: ""
     t.integer  "location_id"
     t.string   "postcode",               default: ""
+    t.text     "overview",               default: ""
+    t.text     "skills"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

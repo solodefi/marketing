@@ -1,12 +1,23 @@
 class Job < ApplicationRecord
+	
 	belongs_to :user, validate: true
 	has_many :proposals, dependent: :destroy
 	belongs_to :profession
 
+	belongs_to :freelancer, :class_name => "User", :foreign_key => :freelancer_id
+
+	has_one :freelancer_review, dependent: :destroy
+	has_one :client_review, dependent: :destroy
+
 	serialize :category_ids, Array
+
+	enum status: [ :open, :progress, :end]
 
 	validates_numericality_of :price, greater_than_or_equal_to: 0, only_integer: true
 	validates :title, presence: true, allow_blank: false
+
+	scope :title, -> (title) { where("lower(title) like ?", "%#{title.downcase}%") }
+	scope :category, -> (category_id) { where("category_ids like ?", "%#{category_id}%") }
 
 	def categories
 

@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type, :postcode
+	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type, :postcode, :overview, skills: []
 
 	index do 
 		selectable_column
@@ -29,9 +29,17 @@ ActiveAdmin.register User do
 			f.input :birthday
 			f.input :image
 			f.input :postcode
+			f.input :overview
+			f.input :skills, as: :select, multiple: true, :collection => Category.select('distinct on(title) *'), display_name: :title, label: "Skills"
 			# f.input :location, include_blank: false
 		end
 		actions
+	end
+
+	before_save do |user|
+		user.skills.each do |skill|
+			user.skills.delete(skill) if skill == ""
+		end
 	end
 
 	# Allow to update user without password
