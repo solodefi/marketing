@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Initialize Admin User for Admin Panel
-AdminUser.create!(email: 'admin@sthinking.com', password: 'password', password_confirmation: 'password')
+AdminUser.create!(email: 'admin@structured-thinking.co.uk', password: 'password', password_confirmation: 'password')
 
 # Initialize Profession Structural Engineers and sub categories
 p_structural_engineers = Profession.create!(title: 'Structural Engineers')

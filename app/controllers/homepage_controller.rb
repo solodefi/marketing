@@ -18,17 +18,27 @@ class HomepageController < ApplicationController
   end
 
   def signup_user_and_post_job
+
     @user = User.new(user_params)
-    @user.user_type = "Client"
-    @user.save
-
     @job = Job.new(job_params)
-    @job.user_id = @user.id
-    @job.save
 
-    sign_in @user
+    respond_to do |format|
+      @user.user_type = "Client"
 
-    redirect_to jobs_url
+      if @user.save
+        @job.user_id = @user.id
+
+        if @job.save
+          sign_in @user
+          format.html { redirect_to jobs_url, notice: "You have signed up & posted a job successfully!" }
+        else
+          format.html { render :getstarted }
+        end
+      else
+        format.html { render :getstarted }
+      end
+    end
+
   end
 
   def job_params

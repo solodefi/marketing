@@ -32,18 +32,31 @@ class JobsController < EndUserBaseController
   # POST /jobs
   def create
     @job = Job.new(job_params)
+
     @job.user_id = current_user.id
 
-    @job.save
+    respond_to do |format|
+      if @job.save
+        format.html { redirect_to @job, notice: 'Job has been successfully created.' }
+      else
+        format.html { render :new }
+      end
+    end
 
-    redirect_to @job, notice: 'Job has been successfully created.'
   end
 
   # PATCH/PUT /jobs/1
   def update
     @job.update(job_params)
 
-    redirect_to @job, notice: 'Job has been successfully updated.'
+    respond_to do |format|
+      if @job.save
+        format.html { redirect_to @job, notice: 'Job has been successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
+    
   end
 
   # DELETE /jobs/1

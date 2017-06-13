@@ -10,7 +10,6 @@
 
     <% if @job.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
       <ul>
         <% @job.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -19,19 +18,29 @@
     </div>
     <% end %>
 
+    <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
     <div class="form-group">
       <%= j.label "What do you need to get done?" %>
-      <%= j.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a basement conversion" %>
+      <%= j.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a basement conversion.", required: true %>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
-        <%= j.label "Profession" %>
+        <%= j.label "Profession" %><i>(optional)</i>
         </br>
         <%= j.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#job_profession_id').val()"}, :job_category_ids) } %>
       </div>
       <div class="form-group col-md-6">
-        <%= j.label "Category" %>
+        <%= j.label "Category" %><i>(optional)</i>
         </br>
         <% if j.object.profession_id.present? && !j.object.new_record? %>
           <%= j.select :category_ids, Profession.find_by_id(j.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
@@ -42,27 +51,27 @@
     </div>
 
     <div class="form-group">
-      <%= j.label "Estimated budget (£)" %>
+      <%= j.label "Estimated budget (£)" %><i>(optional)</i>
       <%= j.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
     </div>
 
     <div class="form-group">
       <%= j.label "Description of requirements" %>
-      <%= j.text_area :description, autofocus: true, class: "form-control" , placeholder: "Please provide a description of your job.  A more detailed description will attract better proposals", rows: 20 %>
+      <%= j.text_area :description, autofocus: true, class: "form-control" , placeholder: "Please provide a description of your job.  A more detailed description will attract better proposals.", rows: 15, required: true %>
     </div>
 
     <div class="form-group" >
-      <%= j.label "Location" %>
-      <%= j.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode" %>
+      <%= j.label "Postcode of job" %>
+      <%= j.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode", required: true %>
     </div>
 
     <div class="form-group" >
-      <%= j.label "When do you start?" %>
+      <%= j.label "When do you start?" %><i>(optional)</i>
       <%= j.date_field :start_date, class: "form-control" %>
     </div>
 
     <div class="form-group" >
-      <%= j.label "End by? (optional)" %>
+      <%= j.label "End by? " %><i>(optional)</i>
       <%= j.date_field :end_date, class: "form-control"%>
     </div>
     
@@ -74,35 +83,32 @@
     <div class="row">
       <div class="form-group col-lg-6">
         <%= u.label :first_name, "FIRST NAME" %>
-        <%= u.text_field :first_name, autofocus: true, class: "form-control", placeholder: "FirstName"  %>
+        <%= u.text_field :first_name, autofocus: true, class: "form-control", placeholder: "FirstName", required: true  %>
       </div>  
       <div class="form-group col-lg-6">
         <%= u.label :last_name, "LAST NAME" %>
-        <%= u.text_field :last_name, autofocus: true, class: "form-control" , placeholder: "LastName"  %>
+        <%= u.text_field :last_name, autofocus: true, class: "form-control" , placeholder: "LastName", required: true  %>
       </div>  
     </div>
     
     <div class="row">
       <div class="form-group col-lg-12" >
         <%= u.label :Email, "EMAIL ADDRESS" %>
-        <%= u.email_field :email, autofocus: true, class: "form-control" , placeholder: "Email: example@domain.com" %>
-      </div>  
+        <%= u.email_field :email, autofocus: true, class: "form-control" , placeholder: "Email: example@domain.com", required: true %>
+      </div>
     </div>
     
     <div class="row">
       <div class="form-group col-lg-12">
-        <%= u.label :password, "PASSWORD" %>
-        <%= u.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Create a password" %>
-        <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-      </div>  
+        <%= u.label :password, "CREATE PASSWORD" %><i>(Minimum 6 characters)</i>
+        <%= u.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Create a password", required: true %>
+      </div>
     </div>
     
     <div class="row">
       <div class="form-group col-lg-12">
-        <%= u.label :password_confirmation, "PASSWORD CONFIRMATION" %>
-        <%= u.password_field :password_confirmation, autocomplete: "off", class: "form-control" , placeholder: "Password confirm" %>
+        <%= u.label :password_confirmation, "CONFIRM PASSWORD" %><i>(Minimum 6 characters)</i>
+        <%= u.password_field :password_confirmation, autocomplete: "off", class: "form-control" , placeholder: "Password confirm", required: true %>
       </div>  
     </div>
 

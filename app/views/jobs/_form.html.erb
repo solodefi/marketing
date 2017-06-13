@@ -6,8 +6,6 @@
   <%= form_for(job) do |f| %>
     <% if job.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
       <ul>
         <% job.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -21,17 +19,17 @@
 
         <div class="form-group">
           <%= f.label "What do you need to get done?" %>
-          <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a basement conversion" %>
+          <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "e.g. I need a basement conversion.", required: true %>
         </div>
 
         <div class="row"> 
           <div class="form-group col-md-6">
-            <%= f.label "Profession" %>
+            <%= f.label "Profession" %><i>(optional)</i>
             </br>
             <%= f.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#job_profession_id').val()"}, :job_category_ids) } %>
           </div>
           <div class="form-group col-md-6">
-            <%= f.label "Category" %>
+            <%= f.label "Category" %><i>(optional)</i>
             </br>
             <% if f.object.profession_id.present? && !f.object.new_record? %>
               <%= f.select :category_ids, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
@@ -42,28 +40,28 @@
         </div>
 
         <div class="form-group">
-          <%= f.label "Estimated budget (£)" %>
+          <%= f.label "Estimated budget (£)" %><i>(optional)</i>
           <%= f.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
         </div>
 
         <div class="form-group">
           <%= f.label "Description of requirements" %>
-          <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "Please provide a description of your job.  A more detailed description will attract better proposals", rows: 20 %>
+          <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "Please provide a description of your job.  A more detailed description will attract better proposals.", rows: 20, required: true %>
         </div>
 
         <div class="form-group" >
           <%= f.label "Location" %>
-          <%= f.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode" %>
+          <%= f.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode", required: true %>
         </div>
 
         <div class="form-group" >
-          <%= f.label "When do you start?" %>
+          <%= f.label "When do you start?" %><i>(optional)</i>
           <%= f.date_field :start_date, class: "form-control" %>
         </div>
 
         <div class="form-group" >
-          <%= f.label "End by? (optional)" %>
-          <%= f.date_field :end_date, class: "form-control"%>
+          <%= f.label "End by?" %><i>(optional)</i>
+          <%= f.date_field :end_date, class: "form-control" %>
         </div>
         
         <br>

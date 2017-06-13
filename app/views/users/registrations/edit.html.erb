@@ -1,4 +1,4 @@
-<div class = "container" align = "center" id = "edit_profile_form">
+<div class = "container" id = "edit_profile_form">
   <div class="col-lg-12">
   </br>
   <h1 align="center">Update your profile</h1>
@@ -8,7 +8,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
 
-        <div class="form-group" >
+        <div class="form-group" align="center">
           <%= image_tag('avatar.png', id: "img-preview", width: 150, height: 150, alt: "", class: "") %>
           <br/><br/>
           <%= f.label :image, 'Add a pic?' %>
@@ -16,24 +16,27 @@
         </div>
 
         <div class="form-group">
-          <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: "FirstName"  %>
+          <%= f.label :first_name, "FIRST NAME" %>
+          <%= f.text_field :first_name, autofocus: true, class: "form-control", placeholder: "FirstName", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.text_field :last_name, autofocus: true, class: "form-control" , placeholder: "LastName"  %>
+          <%= f.label :last_name, "LAST NAME" %>
+          <%= f.text_field :last_name, autofocus: true, class: "form-control" , placeholder: "LastName", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.text_field :postcode, autofocus: true, class: "form-control" , placeholder: "Enter postcode"  %>
+          <%= f.label :postcode, "POSTCODE" %>
+          <%= f.text_field :postcode, autofocus: true, class: "form-control" , placeholder: "Enter postcode", required: true  %>
         </div>
 
         <div class="form-group">
-          <%= f.label "Select Your Skills" %>
+          <%= f.label :skills, "SELECT YOUR SKILLS" %><i>(optional)</i>
           <%= f.select :skills, Category.select('distinct on(title) *').collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
         </div>
 
         <div class="form-group">
-          <%= f.label "Overview" %>
+          <%= f.label :overview, "OVERVIEW" %><i>(optional)</i>
           <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe what you did, what you do, what are you looking for.  A more detailed description helps you to get more jobs", rows: 20 %>
         </div>
        

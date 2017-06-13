@@ -18,21 +18,21 @@
 
         <div class="form-group">
           <%= f.label "Desired price (£)" %>
-          <%= f.number_field :price, autofocus: true, class: "form-control", placeholder: "Price" %>
+          <%= f.number_field :price, autofocus: true, class: "form-control", placeholder: "Price", required: true %>
         </div>
 
         <div class="form-group">
           <%= f.label "Cover Letter" %>
-          <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I've been working as a structural engineer for 10 years and have rich experiences.", rows: 20 %>
+          <%= f.text_area :description, autofocus: true, class: "form-control" , placeholder: "e.g. I've been working as a structural engineer for 10 years and have rich experiences.", rows: 20, required: true %>
         </div>
 
         <div class="form-group" >
-          <%= f.label "When can you start?" %>
+          <%= f.label "When can you start?" %><i>(optional)</i>
           <%= f.date_field :start_date, class: "form-control" %>
         </div>
 
         <div class="form-group" >
-          <%= f.label "End by?" %>
+          <%= f.label "End by?" %><i>(optional)</i>
           <%= f.date_field :end_date, class: "form-control"%>
         </div>
         

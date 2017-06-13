@@ -8,12 +8,12 @@
       <div class="panel-heading">
 
         <div class="form-group">
-          <%= f.label "Select Your Skills" %>
+          <%= f.label :skills, "SELECT YOUR SKILLS" %>
           <%= f.select :skills, Category.select('distinct on(title) *').collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
         </div>
 
         <div class="form-group">
-          <%= f.label "Overview" %>
+          <%= f.label :overview, "OVERVIEW" %>
           <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe what you did, what you do, what are you looking for.  A more detailed description helps you to get more jobs", rows: 20 %>
         </div>
         

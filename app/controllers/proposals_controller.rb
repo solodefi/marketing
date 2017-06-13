@@ -26,16 +26,27 @@ class ProposalsController < EndUserBaseController
     @proposal.user_id = current_user.id
     @proposal.job_id = @@job_id
 
-    @proposal.save
-
-    redirect_to @proposal, notice: 'Your proposal has been sent successfully.'
+    respond_to do |format|
+      if @proposal.save
+        format.html { redirect_to @proposal, notice: 'Your proposal has been sent successfully.' }
+      else
+        format.html { render :new }
+      end
+    end
+    
   end
 
   # PATCH/PUT /proposals/1
   def update
     @proposal.update(proposal_params)
 
-    redirect_to @proposal, notice: 'Your proposal has been successfully updated.'
+    respond_to do |format|
+      if @proposal.save
+        format.html { redirect_to @proposal, notice: 'Your proposal has been successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
   end
 
   # DELETE /proposals/1

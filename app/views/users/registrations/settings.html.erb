@@ -9,24 +9,20 @@
       <div class="panel-heading">
 
         <div class="form-group">
-          <%= f.label "New Password" %><br />
-          <%= f.password_field :password, autocomplete: "off" %>
-          <% if @minimum_password_length %>
-            <br />
-            <em><%= @minimum_password_length %> characters minimum</em>
-          <% end %>
+          <%= f.label :current_password, "EXISTING PASSWORD" %><br />
+          <%= f.password_field :current_password, autocomplete: "off", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.label "Password Confirmation" %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          <%= f.label :password, "NEW PASSWORD" %> <i>(Minimum 6 characters)</i> <br />
+          <%= f.password_field :password, autocomplete: "off", required: true %>
         </div>
 
         <div class="form-group">
-          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-          <%= f.password_field :current_password, autocomplete: "off" %>
+          <%= f.label :password_confirmation, "CONFIRM NEW PASSWORD" %> <i>(Minimum 6 characters)</i> <br />
+          <%= f.password_field :password_confirmation, autocomplete: "off", required: true %>
         </div>
-       
+
         <br>
         <div class="form-group" id = "button">
           <%= f.submit "Update", class: "btn btn-success" %>

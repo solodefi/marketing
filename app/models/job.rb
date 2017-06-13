@@ -15,6 +15,8 @@ class Job < ApplicationRecord
 
 	validates_numericality_of :price, greater_than_or_equal_to: 0, only_integer: true
 	validates :title, presence: true, allow_blank: false
+	validates :description, presence: true, allow_blank: false
+	validates :postcode, presence: true, allow_blank: false
 
 	scope :title, -> (title) { where("lower(title) like ?", "%#{title.downcase}%") }
 	scope :category, -> (category_id) { where("category_ids like ?", "%#{category_id}%") }

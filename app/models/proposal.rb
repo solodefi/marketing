@@ -4,5 +4,6 @@ class Proposal < ApplicationRecord
 
 	validates_numericality_of :price, greater_than_or_equal_to: 0, only_integer: true
 
+  validates :description, presence: true, allow_blank: false
 	
 end

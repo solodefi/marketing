@@ -19,6 +19,9 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  validates :first_name, presence: true, allow_blank: false
+  validates :last_name, presence: true, allow_blank: false
+
   def country_name
   	c = ISO3166::Country[country]
   	c.translations[I18n.locale.to_s] || c.name
