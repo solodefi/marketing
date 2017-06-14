@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type, :postcode, :overview, skills: []
+	permit_params :title, :first_name, :last_name, :birthday, :email, :password, :password_confirmation, :image, :location_id, :country, :user_type, :postcode, :overview, :profession_id, skills: []
 
 	index do 
 		selectable_column
@@ -7,6 +7,7 @@ ActiveAdmin.register User do
 		column :first_name
 		column :last_name
 		column :title
+		column :profession
 		column :email
 		column :postcode
 		actions
@@ -15,6 +16,7 @@ ActiveAdmin.register User do
 	filter :email
 	filter :title
 	filter :postcode
+	filter :profession
 	# filter :location, as: :select
 
 	form do |f|
@@ -30,7 +32,15 @@ ActiveAdmin.register User do
 			f.input :image
 			f.input :postcode
 			f.input :overview
-			f.input :skills, as: :select, multiple: true, :collection => Category.select('distinct on(title) *'), display_name: :title, label: "Skills"
+			f.input :profession, :input_html => {
+	      :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills)
+	    }
+			# f.input :skills, as: :select, multiple: true, :collection => Category.select('distinct on(title) *'), display_name: :title, label: "Skills"
+			if f.object.profession_id.present? && !f.object.new_record?
+	    	f.input :skills, as: :select, multiple: true, :collection => Profession.find_by_id(f.object.profession_id).try(:categories), display_name: :title, label: "Skills"
+	    else
+	    	f.input :skills, as: :select, multiple: true, :collection => {}, display_name: :title, label: "Skills"
+	    end
 			# f.input :location, include_blank: false
 		end
 		actions

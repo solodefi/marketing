@@ -5,6 +5,7 @@ ActiveAdmin.register Job do
 	index do
 		selectable_column
 		column :title
+		column :profession
 		column "Category" do |job|
 			job.str_categories
 		end
@@ -23,6 +24,7 @@ ActiveAdmin.register Job do
 	show do
 		attributes_table do
 			row :title
+			row :profession
 			row('Category') {|job| job.str_categories}
 			row :price
 			row :description
@@ -44,6 +46,7 @@ ActiveAdmin.register Job do
 	filter :postcode
 	filter :status
 	filter :user, :label => "Posted By"
+	filter :profession
 	# filter :category_ids, as: :select, :collection => Category.all, display_name: :title, label: "Category"
 
 	form do |f|

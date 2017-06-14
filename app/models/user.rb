@@ -11,6 +11,7 @@ class User < ApplicationRecord
   # Jobs that I worked/be working on, as a freelancer
   has_many :freelancing_jobs, :class_name => "Job", :foreign_key => :freelancer_id, dependent: :destroy
 
+  belongs_to :profession
   serialize :skills, Array
 
   belongs_to :location

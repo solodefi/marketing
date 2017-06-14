@@ -30,14 +30,26 @@
           <%= f.text_field :postcode, autofocus: true, class: "form-control" , placeholder: "Enter postcode", required: true  %>
         </div>
 
-        <div class="form-group">
-          <%= f.label :skills, "SELECT YOUR SKILLS" %><i>(optional)</i>
-          <%= f.select :skills, Category.select('distinct on(title) *').collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
+        <div class="row"> 
+          <div class="form-group col-md-6">
+            <%= f.label :profession_id, "PROFESSION" %><i>(optional)</i>
+            </br>
+            <%= f.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills) } %>
+          </div>
+          <div class="form-group col-md-6">
+            <%= f.label :skills, "SELECT YOUR SKILLS" %><i>(optional)</i>
+            </br>
+            <% if f.object.profession_id.present? && !f.object.new_record? %>
+              <%= f.select :skills, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
+            <% else %>
+              <%= f.select :skills, {}, {}, {multiple: true, class: "dropdown form-control"} %>
+            <% end %>
+          </div>
         </div>
 
         <div class="form-group">
           <%= f.label :overview, "OVERVIEW" %><i>(optional)</i>
-          <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe what you did, what you do, what are you looking for.  A more detailed description helps you to get more jobs", rows: 20 %>
+          <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe your skills, your experience and the types of job you are looking for. A more detailed description will help you find more jobs.", rows: 20 %>
         </div>
        
         <br>
