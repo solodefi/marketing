@@ -9,17 +9,17 @@
 
         <div class="row"> 
           <div class="form-group col-md-6">
-            <%= f.label :profession_id, "PROFESSION" %><i>(optional)</i>
+            <%= f.label :profession_id, "PROFESSION" %>
             </br>
-            <%= f.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills) } %>
+            <%= f.select :profession_id, Profession.where.not(title: "Don't know").collect{|p| [p.title, p.id]}, {:include_blank => "-- SELECT ONE --"}, {class: "form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills), required: true } %>
           </div>
           <div class="form-group col-md-6">
-            <%= f.label :skills, "SELECT YOUR SKILLS" %><i>(optional)</i>
+            <%= f.label :skills, "SELECT YOUR SKILLS" %>
             </br>
             <% if f.object.profession_id.present? && !f.object.new_record? %>
-              <%= f.select :skills, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
+              <%= f.select :skills, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control", required: true} %>
             <% else %>
-              <%= f.select :skills, {}, {}, {multiple: true, class: "dropdown form-control"} %>
+              <%= f.select :skills, {}, {}, {multiple: true, class: "dropdown form-control", required: true} %>
             <% end %>
           </div>
         </div>

@@ -5,49 +5,47 @@
 
 <div class="container">
     <div class="row">
+        <div class="text-center">
+            <% if flash[:alert] %>
+                <p class="flash-alert"><%= flash[:alert] %></p>
+            <% end %>
+            <% if flash[:notice] %>
+                <p class="flash-notice"><%= flash[:notice] %></p>
+            <% end %>
+        </div>
+        
         <div class="col-md-8">
             <div class="well well-sm">
-                <form>
+                <%= form_for(@message, url: send_contact_us_message_about_index_path) do |f| %>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="name">
-                                Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter name" required="required" />
+                            <%= f.label :name, "Name" %>
+                            <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "Enter name", required: true %>
                         </div>
                         <div class="form-group">
-                            <label for="email">
-                                Email Address</label>
+                            <%= f.label :email, "Email Address" %>
                             <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
-                                </span>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Enter email", required: true %>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="subject">
-                                Subject</label>
-                            <select id="subject" name="subject" class="form-control" required="required">
-                                <option value="na" selected="">Choose One:</option>
-                                <option value="service">General Customer Service</option>
-                                <option value="suggestions">Suggestions</option>
-                                <option value="product">Product Support</option>
-                            </select>
+                            <%= f.label :subject, "Subject" %>
+                            <%= f.select :subject, options_for_select(["General Customer Service", "Suggestions", "Product Support"]), {include_blank: "Choose One: "}, {class: "dropdown form-control", required: true} %>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="name">
-                                Message</label>
-                            <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"
-                                placeholder="Message"></textarea>
+                            <%= f.label :content, "Message" %>
+                            <%= f.text_area :content, autofocus: true, class: "form-control", placeholder: "Message", rows: 9, cols: 25, required: true %>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-warning pull-right" id="btnContactUs">
-                            Send Message</button>
+                        <%= f.submit "Send Message", class: "btn btn-warning pull-right" %>
                     </div>
                 </div>
-                </form>
+                <% end %>
             </div>
         </div>
         <div class="col-md-4">
@@ -59,7 +57,7 @@
                 94 Fulham Palace Road<br>
                 London<br>
                 W6 9PL<br>
-                <a href="mailto:#">info@structured-thinking.co.uk</a>
+                <a href="mailto:info@structured-thinking.co.uk">info@structured-thinking.co.uk</a>
             </address>
             </form>
         </div>

@@ -34,7 +34,7 @@
             <% if f.object.profession_id.present? && !f.object.new_record? %>
               <%= f.select :category_ids, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
             <% else %>
-              <%= f.select :category_ids, {}, {}, {multiple: true, class: "dropdown form-control"} %>
+              <%= f.select :category_ids, {}, {}, { multiple: true, class: "dropdown form-control" } %>
             <% end %>
           </div>
         </div>

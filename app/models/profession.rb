@@ -7,4 +7,5 @@ class Profession < ApplicationRecord
   def to_s
     self.title
   end
+
 end

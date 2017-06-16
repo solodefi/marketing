@@ -33,14 +33,15 @@ ActiveAdmin.register User do
 			f.input :postcode
 			f.input :overview
 			f.input :profession, :input_html => {
-	      :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills)
+				:onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills)
 	    }
 			# f.input :skills, as: :select, multiple: true, :collection => Category.select('distinct on(title) *'), display_name: :title, label: "Skills"
 			if f.object.profession_id.present? && !f.object.new_record?
-	    	f.input :skills, as: :select, multiple: true, :collection => Profession.find_by_id(f.object.profession_id).try(:categories), display_name: :title, label: "Skills"
+				f.input :skills, as: :select, multiple: true, :collection => Profession.find_by_id(f.object.profession_id).try(:categories), display_name: :title, label: "Skills"
 	    else
-	    	f.input :skills, as: :select, multiple: true, :collection => {}, display_name: :title, label: "Skills"
+			 	f.input :skills, as: :select, multiple: true, :collection => {}, display_name: :title, label: "Skills"
 	    end
+
 			# f.input :location, include_blank: false
 		end
 		actions

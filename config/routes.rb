@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     collection do
       get :how_it_works
       get :contact_us
+      post :send_contact_us_message
     end
   end
 
