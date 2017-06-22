@@ -10,10 +10,31 @@
       <div class="panel-heading">
 
         <div class="form-group" align = "center" >
-          <%= image_tag('avatar.png', id: "img-preview", width: 150, height: 150, alt: "", class: "") %>
-          <br/><br/>
-          <%= f.label :image, 'Add a photo or logo' %>
-          <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#uploadAvatar">Add a photo or logo</button>
+
+          <div id="uploadAvatar" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Upload your photo</h4>
+                </div>
+                <div class="modal-body">
+                  <%= image_tag('avatar.png', id: "img-preview", width: 150, height: 150, alt: "", class: "hidden") %>
+                  <div id="crop_container">
+                    <% for attribute in [:zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h] %>
+                      <%= f.hidden_field attribute, :id => attribute %>
+                    <% end %>
+                  </div>
+                  </br></br>
+                  <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" onclick="cropbuttonclick()" class="btn btn-default" data-dismiss="modal">Done</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div> <br/>
 
         <div class="btn-group btn-group-justified form-group" data-toggle="buttons-radio" align="center">

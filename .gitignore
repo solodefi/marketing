@@ -16,5 +16,8 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore uploads files
+/public/uploads/*
+
 # Ignore Secret key base
 /config/secrets.yml
