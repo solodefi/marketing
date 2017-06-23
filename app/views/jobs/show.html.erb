@@ -1,57 +1,133 @@
-<%= link_to 'Edit', edit_job_path(@job) %>
-
-<div class="container">
-  <p>
-    <%= @job.title %>
-  </p>
+<div class="container custom-container">
+  
   <div class="job-details">
     <div class="row"> 
-      <div class="col-md-9">
-        <a>
-          <%= link_to "< Back", :back%>
-        </a>
+      <div class="col-md-12">
+        <% if current_user.id == @job.user_id %>
+          <%= link_to @job.title, edit_job_path(@job), {method: :get, class: "custom-table-cell-title-link"} %>
+        <% else %>
+          <h3><%= @job.title %><h3>
+        <% end %>
       </div>
-      <div class="col-md-3"></div>
     </div>
     <div class="row">
       <div class="col-md-3">
-        <span class="job-alter">Budget : </span>
+        <span class="less-highlight">Budget : </span>
         <span>£<%= @job.price %></span>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <span class="glyphicon glyphicon-calendar"></span>
-        <span class="job-alter">Time : </span>
+        <span class="less-highlight">Time : </span>
         <span><%= @job.time_duration %></span>
       </div>
       <div class="col-md-3">
         <span class="glyphicon glyphicon-time"></span>
-        <span class="job-alter">Posted</span>
+        <span class="less-highlight">Posted</span>
         <span><%= time_ago_in_words(@job.created_at) %></span>
-        <span class="job-alter">ago</span>
+        <span class="less-highlight">ago</span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <p class="job-description-details"><%= @job.description %></p>
+        <p class="custom-table-cell-description-details"><%= @job.description %></p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <span class="job-alter">Category : </span>
+        <span class="less-highlight">Category : </span>
         <span><%= @job.str_categories %></span>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-md-6">
-        <span class="glyphicon glyphicon-record"></span>
-        <span class="job-alter">Proposals : </span>
-        <span><%= @job.proposals.count %></span>
-      </div> 
-      <div class="col-md-6">
+      <div class="col-md-12">
         <span class="glyphicon glyphicon-map-marker"></span>
-        <span class="job-alter">Location : </span>
+        <span class="less-highlight">Location : </span>
         <span><%= @job.postcode %></span>
       </div>
     </div>
+    
   </div>
+</div>
+
+<div class="container custom-container">
+
+  <% if @job.proposals.count > 0 %>
+    <% @job.proposals.each do |proposal| %>
+      <div class="custom-table-cell">
+        <div class="row">
+
+          <div class="col-md-2">
+            <div class="profile-header-container">
+              <div class="profile-header-img">
+                <%= show_avatar(proposal.user, "avatar-circle") %>
+              </div>
+            </div> 
+          </div>
+          
+          <div class="col-md-10">
+
+            <div class="row">
+              <div class="col-md-12">
+                <% if current_user.id == @job.user_id %>
+                  <%= link_to proposal.user.name, proposal, {method: :get, class: "custom-table-cell-title-link"} %>
+                <% else %>
+                  <h3><%= proposal.user.name %><h3>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <span class="less-highlight">Budget : </span>
+                <span>£<%= proposal.price %></span>
+              </div>
+              <div class="col-md-6">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span class="less-highlight">Time : </span>
+                <span><%= proposal.time_duration %></span>
+              </div>
+              <div class="col-md-3">
+                <span class="glyphicon glyphicon-time"></span>
+                <span class="less-highlight">Submitted :</span>
+                <span><%= time_ago_in_words(proposal.created_at) %></span>
+                <span class="less-highlight">ago</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <p class="custom-table-cell-description"><%= proposal.description %></p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <span class="less-highlight">Category : </span>
+                <span><%= proposal.user.profession %></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span class="less-highlight">Location : </span>
+                <span><%= proposal.user.postcode %></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    <% end %>
+  <% else %>
+    <div class="no-content-fill">
+      <h3> No proposal ... </h3>
+    </div>
+  <% end %>
+
+  
+
 </div>

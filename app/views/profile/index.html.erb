@@ -1,0 +1,59 @@
+<div class="container custom-container">
+  
+  <div class="custom-table-cell">
+    <div class="row">
+
+      <div class="col-md-2">
+        <div class="profile-header-container">
+          <div class="profile-header-img">
+            <%= show_avatar(@user, "avatar-circle-lg") %>
+          </div>
+        </div> 
+      </div>
+      
+      <div class="col-md-10">
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3> <%= @user.name %> </h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h4> <%= @user.title %> </h4>
+          </div>
+        </div>
+
+        </br>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="less-highlight">Location : </span>
+            <span><%= @user.postcode %></span>
+          </div>
+
+          <div class="col-md-9">
+            <span class="less-highlight">Category : </span>
+            <span><%= @user.profession %></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <h3>OVERVIEW</h3>
+    </div>
+    
+    <div class="col-md-12">
+      <p class="custom-table-cell-description"><%= @user.overview %></p>
+    </div>
+
+  </div>
+</div>

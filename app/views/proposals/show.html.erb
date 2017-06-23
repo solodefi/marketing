@@ -1,34 +1,80 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Job:</strong>
-  <%= @proposal.job_id %>
-</p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @proposal.price %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @proposal.description %>
-</p>
+<div class="container custom-container">
 
-<p>
-  <strong>Start date:</strong>
-  <%= @proposal.start_date %>
-</p>
+  <div class="custom-table-cell">
 
-<p>
-  <strong>End date:</strong>
-  <%= @proposal.end_date %>
-</p>
+    <div class="row">
 
-<p>
-  <strong>User:</strong>
-  <%= @proposal.user_id %>
-</p>
+      <div class="col-md-2">
+        <div class="profile-header-container">
+          <div class="profile-header-img">
+            <%= show_avatar(@proposal.user, "avatar-circle-lg") %>
+          </div>
+        </div> 
+      </div>
+      
+      <div class="col-md-10">
 
-<%= link_to 'Edit', edit_proposal_path(@proposal) %> |
-<%= link_to 'Back', proposals_path %>
+        <div class="row" style="display: flex;">
+          <div class="col-md-9">
+            <h3> <%= @proposal.user.name %> </h3>
+          </div>
+
+          <div class="col-md-3">
+            <%= button_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @proposal.user.id), {method: 'post', class: "btn btn-info", style: "margin-top:15px;"}%>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h4> <%= @proposal.user.title %> </h4>
+          </div>
+        </div>
+
+        </br>
+
+        <div class="row">
+          <div class="col-md-3">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="less-highlight">Location : </span>
+            <span><%= @proposal.user.postcode %></span>
+          </div>
+
+          <div class="col-md-9">
+            <span class="less-highlight">Category : </span>
+            <span><%= @proposal.user.profession %></span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="custom-table-cell row">
+
+    <div class="col-md-12">
+      <h3>Proposal Letter</h3>
+    </div>
+    
+    <div class="col-md-12">
+      <p class="custom-table-cell-description"><%= @proposal.description %></p>
+    </div>
+
+  </div>
+
+  <div class="custom-table-cell row">
+
+    <div class="col-md-12">
+      <h3>OVERVIEW</h3>
+    </div>
+    
+    <div class="col-md-12">
+      <p class="custom-table-cell-description"><%= @proposal.user.overview %></p>
+    </div>
+
+  </div>
+</div>

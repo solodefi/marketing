@@ -30,12 +30,12 @@ class User < ApplicationRecord
   	c.translations[I18n.locale.to_s] || c.name
   end
 
-  def full_name
-    full_name = self.first_name + " " + self.last_name
+  def name
+    return self.first_name + " " + self.last_name
   end
 
   def to_s
-    full_name
+    name
   end
 
 end

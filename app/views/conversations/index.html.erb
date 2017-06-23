@@ -1,0 +1,76 @@
+<div class="container custom-container">
+  <% if @conversations.count > 0 %>
+    <% @conversations.each do |conversation| %>
+      <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+        <% if conversation.sender_id == current_user.id %>
+          <% recipient = User.find(conversation.recipient_id) %>
+        <% else %>
+          <% recipient = User.find(conversation.sender_id) %>
+        <% end %>
+
+        <a href="<%= conversation_messages_path(conversation) %>">
+
+        <div class="custom-table-cell">
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="profile-header-container">
+                <div class="profile-header-img">
+                  <%= show_avatar(recipient, "avatar-circle") %>
+                </div>
+              </div> 
+            </div>
+            
+            <div class="col-md-10">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <h3> <%= recipient.name %> </h3>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-12">
+                  <h4> <%= recipient.title %> </h4>
+                </div>
+              </div>
+
+              </br>
+              
+              <div class="row">
+                <% if recipient.postcode? %>
+                <div class="col-md-3">
+                  <span class="glyphicon glyphicon-map-marker"></span>
+                  <span class="less-highlight">Location : </span>
+                  <span><%= recipient.postcode %></span>
+                </div>
+                <% end %>
+
+                <% if recipient.profession_id? %>
+                <div class="col-md-9">
+                  <span class="less-highlight">Category : </span>
+                  <span><%= recipient.profession %></span>
+                </div>
+                <% end %>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        </a>
+
+      <% end %>
+    <% end %>
+
+  <% else %>
+
+    <div class="no-content-fill">
+      <h3> No messages yet ... </h3>
+    </div>
+
+  <% end %>
+
+  
+</div>

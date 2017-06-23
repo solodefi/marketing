@@ -1,0 +1,71 @@
+<div class="container custom-container" style="text-align: center;">
+  <% if @conversation.sender_id == current_user.id %>
+    <% recipient = User.find(@conversation.recipient_id) %>
+  <% else %>
+    <% recipient = User.find(@conversation.sender_id) %>
+  <% end %>
+  <h4>Conversation with <%= recipient.name %></h4>
+</div>
+
+<div class="container custom-container">
+
+  <% if @over_ten %>
+    <a href="?m=all">
+      <div class="custom-table-cell">
+        <div class="row">
+          <div class="col-md-12">
+            <span class="less-highlight">Show Previous...</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  <% end %>
+
+  <div class="custom-container">
+    <% @messages.each do |message| %>
+      <% if message.body %>
+        <% user = User.find(message.user_id) %>
+
+        <div class="custom-table-cell">
+          <div class="row">
+
+            <div class="col-md-1">
+              <div class="profile-header-container">
+                <div class="profile-header-img">
+                  <%= show_avatar(user, "avatar-circle-md") %>
+                </div>
+              </div> 
+            </div>
+            
+            <div class="col-md-11">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="less-highlight"><%= message.message_time %></span>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <%= message.body %>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= form_for [@conversation, @message], html: {class: "row"} do |f| %>
+    <div class="form-group col-md-12">
+      <%= f.text_area :body, class: "form-control" %>
+    </div>
+   
+    <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+    <div class="col-md-12">
+      <%= f.submit "Send", class: "btn btn-success pull-right" %>
+    </div>
+  <% end %>
+</div>

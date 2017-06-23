@@ -1,0 +1,43 @@
+.profile-header-container{
+	margin: 0 auto;
+	text-align: center;
+}
+
+.profile-header-img {
+	padding: 10px;
+}
+
+.profile-header {
+	margin-top: 0px;
+}
+
+@mixin avatar($size) {
+    width: $size;
+    height: $size;
+    display: inline-block;
+    background-color: var(--orange-color);
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+
+    @if $size == 30px {
+    	margin-top: -10px;
+    	margin-bottom: -10px;
+    }
+
+    .initials {
+      position: relative;
+      top: $size*0.25;
+      font-size: $size*0.5;
+      line-height: $size*0.5;
+      color: #fff;
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+    }
+}
+
+.avatar-circle      { @include avatar(120px); }
+.avatar-circle-md   { @include avatar(42px); }
+.avatar-circle-sm   { @include avatar(30px); }
+.avatar-circle-lg   { @include avatar(150px); }

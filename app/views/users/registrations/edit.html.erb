@@ -49,36 +49,40 @@
         </div>
 
         <div class="form-group">
-          <%= f.label :title, "TITLE" %>
-          <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter your title", required: true %>
-        </div>
-
-        <div class="form-group">
           <%= f.label :postcode, "POSTCODE" %>
-          <%= f.text_field :postcode, autofocus: true, class: "form-control" , placeholder: "Enter postcode", required: true  %>
+          <%= f.text_field :postcode, autofocus: true, class: "form-control", placeholder: "Enter postcode", required: true  %>
         </div>
 
-        <div class="row"> 
-          <div class="form-group col-md-6">
-            <%= f.label :profession_id, "PROFESSION" %>
-            </br>
-            <%= f.select :profession_id, Profession.where.not(title: "Don't know").collect{|p| [p.title, p.id]}, {:include_blank => "-- SELECT ONE --"}, {class: "form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills), required: true } %>
-          </div>
-          <div class="form-group col-md-6">
-            <%= f.label :skills, "SELECT YOUR SKILLS" %>
-            </br>
-            <% if f.object.profession_id.present? && !f.object.new_record? %>
-              <%= f.select :skills, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control", required: true} %>
-            <% else %>
-              <%= f.select :skills, {}, {}, {multiple: true, class: "dropdown form-control", required: true} %>
-            <% end %>
-          </div>
-        </div>
+        <% if current_user.user_type == "Freelancer" %>
 
-        <div class="form-group">
-          <%= f.label :overview, "OVERVIEW" %>
-          <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe your skills, your experience and the types of job you are looking for. A more detailed description will help you find more jobs.", rows: 20, required: true %>
-        </div>
+          <div class="form-group">
+            <%= f.label :title, "TITLE" %>
+            <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter your title", required: true %>
+          </div>
+          
+          <div class="row">
+            <div class="form-group col-md-6">
+              <%= f.label :profession_id, "PROFESSION" %>
+              </br>
+              <%= f.select :profession_id, Profession.where.not(title: "Don't know").collect{|p| [p.title, p.id]}, {:include_blank => "-- SELECT ONE --"}, {class: "form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#user_profession_id').val()"}, :user_skills), required: true } %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.label :skills, "SELECT YOUR SKILLS" %>
+              </br>
+              <% if f.object.profession_id.present? && !f.object.new_record? %>
+                <%= f.select :skills, Profession.find_by_id(f.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control", required: true} %>
+              <% else %>
+                <%= f.select :skills, {}, {}, {multiple: true, class: "dropdown form-control", required: true} %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :overview, "OVERVIEW" %>
+            <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe your skills, your experience and the types of job you are looking for. A more detailed description will help you find more jobs.", rows: 20, required: true %>
+          </div>
+
+        <% end %>
        
         <br>
         <div class="form-group" id = "button">
