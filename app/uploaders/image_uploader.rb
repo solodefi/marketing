@@ -99,7 +99,8 @@ class ImageUploader < CarrierWave::Uploader::Base
             # Rotate zoomed image
             i.rotate(model.rotation_angle.to_i)
             # Crop zoomed and rotated image
-            i.crop "#{w}x#{h}+#{x}+#{y}"
+            # i.crop "#{w}x#{h}+#{x}+#{y}"
+            i.crop "#{w}x#{h}+0+0"
 
             Rails.logger.info "Successfully croped"
           end
