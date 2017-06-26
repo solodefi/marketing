@@ -150,8 +150,11 @@ var cropbuttonclick = function() {
   croppedImage.src = myImage;
 
   c.width = crop_container.offsetWidth; c.height = crop_container.offsetHeight;
-  document.getElementById('zoom_w').value = img.width * aspectRatio;
-  document.getElementById('zoom_h').value = img.height * aspectRatio;
+  document.getElementById('zoom_w').value = Math.floor(img.width * aspectRatio);
+  document.getElementById('zoom_h').value = Math.floor(img.height * aspectRatio);
+
+  console.log(document.getElementById('zoom_w').value);
+  console.log(document.getElementById('zoom_h').value);
 }
 
 $(document).ready(ready);
