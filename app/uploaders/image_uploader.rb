@@ -83,8 +83,8 @@ class ImageUploader < CarrierWave::Uploader::Base
           # Set x-y coordinates of cropped image.
           x = model.zoom_x.to_i >= 0 ? (model.crop_x.to_i - model.zoom_x.to_i) : (model.zoom_x.to_i.abs + model.crop_x.to_i)
           y = model.zoom_y.to_i >= 0 ? (model.crop_y.to_i - model.zoom_y.to_i) : (model.zoom_y.to_i.abs + model.crop_y.to_i)
-          x = model.drag_x.to_i >= 0 ? (x - model.drag_x.to_i) : (model.drag_x.to_i.to_i.abs + x)
-          y = model.drag_y.to_i >= 0 ? (y - model.drag_y.to_i) : (model.drag_y.to_i.to_i.abs + y) 
+          x = model.drag_x.to_i >= 0 ? (x - model.drag_x.to_i) : (model.drag_x.to_i.abs + x)
+          y = model.drag_y.to_i >= 0 ? (y - model.drag_y.to_i) : (model.drag_y.to_i.abs + y) 
 
           # x = (x.to_i * model.zoom_w.to_f).to_s
           # y = (y.to_i * model.zoom_w.to_f).to_s
@@ -101,7 +101,7 @@ class ImageUploader < CarrierWave::Uploader::Base
             # Crop zoomed and rotated image
             i.crop "#{w}x#{h}+#{x}+#{y}"
 
-            puts "Successfully croped"
+            Rails.logger.info "Successfully croped"
           end
           img
         end
