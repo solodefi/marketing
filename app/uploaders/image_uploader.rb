@@ -45,6 +45,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def resize_and_crop
+
     if model.class.to_s == "User"
       if model.crop_x.present?
         puts "crop ddd"
@@ -81,6 +82,8 @@ class ImageUploader < CarrierWave::Uploader::Base
           puts model.crop_h
           puts model.rotation_angle
           puts "parameters end"
+
+
           
           # Set x-y coordinates of cropped image.
           x = model.zoom_x.to_i >= 0 ? (model.crop_x.to_i - model.zoom_x.to_i) : (model.zoom_x.to_i.abs + model.crop_x.to_i)
@@ -96,7 +99,8 @@ class ImageUploader < CarrierWave::Uploader::Base
 
           img.combine_options do |i|
             # First we need to resize image with zoomed image. For more details you can find here "https://github.com/minimagick/minimagick"
-            i.resize "#{model.zoom_w.to_i}x#{model.zoom_h.to_i}+0+0^\!"
+            # i.resize "#{model.zoom_w.to_i}x#{model.zoom_h.to_i}+0+0^\!"
+            i.resize "500x388+0+0^\!"
             # Rotate zoomed image
             i.rotate(model.rotation_angle.to_i)
             # Crop zoomed and rotated image
