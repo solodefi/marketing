@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   enum user_type: [ :Client, :Freelancer ]
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :rotation_angle, :zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :rotation_angle, :zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :image_backup
 
   mount_uploader :image, ImageUploader
 

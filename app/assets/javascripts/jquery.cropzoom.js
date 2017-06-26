@@ -580,8 +580,8 @@
                             aspectRatio: $options.selector.aspectRatio,
                             maxHeight: $options.selector.maxHeight,
                             maxWidth: $options.selector.maxWidth,
-                            minHeight: $options.selector.h,
-                            minWidth: $options.selector.w,
+                            minHeight: 50,
+                            minWidth: 50,
                             containment: 'parent',
                             resize: function (event, ui) {
                                 // update ovelay position
@@ -638,7 +638,8 @@
                                     + 'px',
                                 'font-family': 'Arial',
                                 'color': $options.selector.infoFontColor,
-                                'width': '100%'
+                                'width': '100%',
+                                'display' : 'none'
                             });
                     }
                     if ($options.selector.showPositionsOnDrag) {

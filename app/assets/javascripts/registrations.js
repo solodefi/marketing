@@ -8,12 +8,13 @@ ready = function() {
 			var reader = new FileReader();
 
 			reader.onload = function (e) {
+
 				$("#rotation_angle").val(0);
 				$('#img-profile-source').attr('src', e.target.result);
 
 				var cropzoom = $('#crop_container').cropzoom({ 
-				    width:500,
-				    height:500,
+				    width:document.getElementById("myCanvas").width,
+				    height:document.getElementById("myCanvas").height,
 				    bgColor: '#CCC',
 				    enableRotation:true,
 				    enableZoom:false,
@@ -54,6 +55,7 @@ ready = function() {
 				      }
 				    }
 				  });
+
 			}
 
 			reader.readAsDataURL(input.files[0]);

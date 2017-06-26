@@ -1,14 +1,31 @@
 var ready;
 ready = function() {
+
+	var canvasWidth = 500.0;
+	var canvasHeight = 500.0;
+	if (window.innerWidth < 500) {
+		canvasWidth = 260.0;
+		canvasHeight = 260.0;
+	}
+	if (document.getElementById("myCanvas") !== null ) {
+		document.getElementById("myCanvas").width = canvasWidth;
+	}
+
+	if (document.getElementById("myCanvas") !== null ) {
+		document.getElementById("myCanvas").height = canvasHeight;
+	}
+	
 	var cropzoom = $('#crop_container').cropzoom({ 
-	  width:500,
-	  height:500,
+	  width:canvasWidth,
+	  height:canvasHeight,
 	  bgColor: '#CCC',
 	  enableRotation:true,
 	  enableZoom:false,
 	  zoomSteps:10,
 	  rotationSteps:10,
 	  selector:{
+	  	w: 150,
+        h: 150,
 	    centered:true,
 	    startWithOverlay: true,
 	    borderColor:'blue',
@@ -54,8 +71,6 @@ ready = function() {
 //=require jquery-ui-1.10.3
 
 var cropbuttonclick = function() {
-	
-	console.log("crop button clicked!");
 
   var get_html = $('#infoSelector').html();
   
@@ -75,12 +90,13 @@ var cropbuttonclick = function() {
 
   var angle = $("#rotation_angle").val();
 
+  var crop_container = document.getElementById("crop_container");
   var c = document.getElementById("myCanvas");
   var ctx = c.getContext("2d");
   var img = document.getElementById("img-profile-source");
   
-  var widthRatio = (500.0 / img.width);
-  var heightRatio = (500.0 / img.height);
+  var widthRatio = (crop_container.offsetWidth / img.width);
+  var heightRatio = (crop_container.offsetHeight / img.height);
   var aspectRatio = widthRatio;
 
   if(heightRatio < widthRatio)
@@ -104,7 +120,7 @@ var cropbuttonclick = function() {
   sy = -sy;
  
 
-  c.width = 500; c.height = 500;
+  c.width = crop_container.offsetWidth; c.height = crop_container.offsetHeight;
   ctx.clearRect(0, 0, c.width, c.height);
   //-drawing image
   ctx.save(); 
@@ -132,7 +148,10 @@ var cropbuttonclick = function() {
   var myImage = c.toDataURL("image/png");
   var croppedImage = document.getElementById("croppedimage");
   croppedImage.src = myImage;
-  document.getElementById('avatar-upload').value = myImage;
+
+  c.width = crop_container.offsetWidth; c.height = crop_container.offsetHeight;
+  document.getElementById('zoom_w').value = img.width * aspectRatio;
+  document.getElementById('zoom_h').value = img.height * aspectRatio;
 }
 
 $(document).ready(ready);

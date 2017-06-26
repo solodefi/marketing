@@ -10,7 +10,7 @@
 
         <div class="form-group" align="center">
           <% if resource.image? %>
-            <%= image_tag(resource.image, id: "croppedimage", alt: "", class: "avatar-circle-lg") %></br></br>
+            <%= image_tag(resource.image.custom_crop, id: "croppedimage", alt: "", class: "avatar-circle-lg") %></br></br>
           <% else %>
             <%= image_tag('avatar.png', id: "croppedimage", alt: "", class: "avatar-circle-lg") %></br></br>
           <% end %>
@@ -31,7 +31,7 @@
                     <%= image_tag('avatar.png', id: "img-profile-source", alt: "", class: "hidden") %>
                   <% end %>
                   
-                  <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;" class = "hidden"></canvas>
+                  <canvas id="myCanvas" class="hidden"></canvas>
                   <div id="crop_container">
                     
                   </div>

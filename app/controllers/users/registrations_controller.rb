@@ -8,9 +8,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    resource.image.recreate_versions! if resource.image?
+  end
 
   # GET /resource/edit
   # def edit
@@ -20,18 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     resource.update_without_password(user_params)
-    # puts '***************'
-    # puts resource.crop_x
-    # puts resource.remote_image_url
-    # puts resource.image
-    # puts '**************'
-    # resource.remote_image_url = resource.image
-
-    # if params[:user][:crop_x].present?
-    #   resource.image = resource.image.resize_and_crop
-    #   resource.save!
-    #   resource.image.recreate_versions! if resource.image?
-    # end
+    resource.image.recreate_versions! if resource.image?
 
     redirect_to path_to_redirect
 
@@ -106,7 +96,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def user_params
-    params.require(:user).permit({ roles: [] }, :title, :first_name, :last_name, :location_id, :email, :password, :password_confirmation, :image, :user_type, :postcode, :overview, :profession_id, skills: [] )
+    params.require(:user).permit({ roles: [] }, :title, :first_name, :last_name, :location_id, :email, :password, :password_confirmation, :image, :user_type, :postcode, :overview, :zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :profession_id, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h, skills: [] )
   end
 
   def update_password_params
