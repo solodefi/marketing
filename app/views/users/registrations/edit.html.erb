@@ -38,7 +38,7 @@
                   </br></br>
                   <div>
                     <% for attribute in [:zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h] %>
-                      <%= f.text_field attribute, :id => attribute %>
+                      <%= f.hidden_field attribute, :id => attribute %>
                     <% end %>
                   </div>
                   <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
