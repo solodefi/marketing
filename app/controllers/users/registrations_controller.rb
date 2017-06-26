@@ -20,8 +20,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     resource.update_without_password(user_params)
+    # puts '***************'
+    # puts resource.crop_x
+    # puts resource.remote_image_url
+    # puts resource.image
+    # puts '**************'
+    # resource.remote_image_url = resource.image
+
+    # if params[:user][:crop_x].present?
+    #   resource.image = resource.image.resize_and_crop
+    #   resource.save!
+    #   resource.image.recreate_versions! if resource.image?
+    # end
 
     redirect_to path_to_redirect
+
   end
 
   # Settings - Email/Password Update

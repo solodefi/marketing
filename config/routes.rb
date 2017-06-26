@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do
       get :browse
+      get :browse_job_details
     end
   end
 

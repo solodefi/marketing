@@ -4,6 +4,7 @@
 
  Copyright (c) 2010 Gaston Robledo
  */
+
 ;
 (function ($) {
 
@@ -430,6 +431,7 @@
                                     'height': zoomInPx_height + "px"
                                 });
                                 var difX = (getData('image').w / 2) - (zoomInPx_width / 2);
+                                
                                 var difY = (getData('image').h / 2) - (zoomInPx_height / 2);
 
                                 var newX = (difX > 0 ? getData('image').posX
@@ -556,7 +558,7 @@
                                 getData('selector').x = ui.position.left;
                                 getData('selector').y = ui.position.top;
                                 makeOverlayPositions(ui);
-                                // showInfo();
+                                showInfo();
                                 if ($options.selector.onSelectorDrag != null)
                                     $options.selector.onSelectorDrag(
                                         $selector,
@@ -588,7 +590,7 @@
                                 getData('selector').h = $selector
                                     .height();
                                 makeOverlayPositions(ui);
-                                // showInfo();
+                                showInfo();
                                 if ($options.selector.onSelectorResize != null)
                                     $options.selector.onSelectorResize(
                                         $selector,
@@ -610,7 +612,7 @@
                             }
                         });
 
-                    // showInfo($selector);
+                    showInfo($selector);
                     // add selector to the main container
                     _self.append($selector);
                 }
@@ -791,10 +793,10 @@
                     btns.push($('<div />').addClass('mvn_so mvn'));
                     btns.push($('<div />').addClass('mvn_s mvn'));
                     btns.push($('<div />').addClass('mvn_se mvn'));
-					
-					for (var i = 0; i < btns.length; i++) {
-						// for each buttons that were created above,
-						// attach action listeners
+                    
+                    for (var i = 0; i < btns.length; i++) {
+                        // for each buttons that were created above,
+                        // attach action listeners
                         btns[i].mousedown(function () {
                             moveImage(this);
                         }).mouseup(function () {
@@ -802,12 +804,12 @@
                         }).mouseout(function () {
                             clearTimeout(tMovement);
                         });
-						// find the correct position in the placeholder table and add them
+                        // find the correct position in the placeholder table and add them
                         table.find('td:eq(' + i + ')').append(btns[i]);
                     }
-					
-					// find the container in the view, empty it up and append the table
-					$($options.expose.elementMovement).empty().append(table);
+                    
+                    // find the container in the view, empty it up and append the table
+                    $($options.expose.elementMovement).empty().append(table);
                 }
                 ;
 

@@ -10,7 +10,7 @@
               <% if is_applied(job) %>
                 <%= link_to job.title + ' (Applied)', job, {method: :get, class: "custom-table-cell-title-link"}%>
               <% else %>
-                <%= link_to job.title, new_proposal_path(:job_id => job.id), {method: :get, class: "custom-table-cell-title-link"}%>
+                <%= link_to job.title, browse_job_details_jobs_path(:id => job.id), {method: :get, class: "custom-table-cell-title-link"}%>
               <% end %>
             </div>
             <div class="col-md-3"></div>

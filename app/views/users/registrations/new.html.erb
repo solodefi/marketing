@@ -10,6 +10,8 @@
       <div class="panel-heading">
 
         <div class="form-group" align = "center" >
+        
+          <%= image_tag('avatar.png', id: "croppedimage", alt: "", class: "avatar-circle-lg") %></br></br>
           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#uploadAvatar">Add a photo or logo</button>
 
           <div id="uploadAvatar" class="modal fade" role="dialog">
@@ -20,13 +22,22 @@
                   <h4 class="modal-title">Upload your photo</h4>
                 </div>
                 <div class="modal-body">
-                  <%= image_tag('avatar.png', id: "img-preview", width: 150, height: 150, alt: "", class: "hidden") %>
+                  <% if resource.image? %>
+                    <%= image_tag(resource.image, id: "img-profile-source", alt: "", class: "hidden") %>
+                  <% else %>
+                    <%= image_tag('avatar.png', id: "img-profile-source", alt: "", class: "hidden") %>
+                  <% end %>
+                  
+                  <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;" class = "hidden"></canvas>
                   <div id="crop_container">
-                    <% for attribute in [:zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h] %>
-                      <%= f.hidden_field attribute, :id => attribute %>
-                    <% end %>
+                    
                   </div>
                   </br></br>
+                  <div>
+                    <% for attribute in [:zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h] %>
+                      <%= f.text_field attribute, :id => attribute %>
+                    <% end %>
+                  </div>
                   <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
                 </div>
                 <div class="modal-footer">

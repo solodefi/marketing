@@ -4,6 +4,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
+  version :custom_crop do
+    process :resize_and_crop
+  end
+
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
@@ -38,6 +42,42 @@ class ImageUploader < CarrierWave::Uploader::Base
   # For images you might use something like this:
   def extension_whitelist
     %w(jpg jpeg gif png)
+  end
+
+  def resize_and_crop
+    if model.class.to_s == "User"
+      if model.crop_x.present?
+        manipulate! do |img| 
+          w = model.crop_w.to_i
+          h = model.crop_h.to_i
+
+          model.zoom_x = 0
+          model.zoom_y = 0
+          model.zoom_w = 1
+          model.zoom_h = 1
+          model.drag_x = 0
+          model.drag_y = 0
+          
+          # Set x-y coordinates of cropped image.
+          x = model.zoom_x.to_i >= 0 ? (model.crop_x.to_i - model.zoom_x.to_i) : (model.zoom_x.to_i.abs + model.crop_x.to_i)
+          y = model.zoom_y.to_i >= 0 ? (model.crop_y.to_i - model.zoom_y.to_i) : (model.zoom_y.to_i.abs + model.crop_y.to_i)
+          x = model.drag_x.to_i >= 0 ? (x - model.drag_x.to_i) : (model.drag_x.to_i.to_i.abs + x) 
+          y = model.drag_y.to_i >= 0 ? (y - model.drag_y.to_i) : (model.drag_y.to_i.to_i.abs + y) 
+
+          img.combine_options do |i|
+            # First we need to resize image with zoomed image. For more details you can find here "https://github.com/minimagick/minimagick"
+            i.resize "#{model.zoom_w.to_i}x#{model.zoom_h.to_i}+#{model.zoom_x.to_i}+#{model.zoom_y.to_i}^\!"
+            # Rotate zoomed image
+            i.rotate(model.rotation_angle.to_i)
+            # Crop zoomed and rotated image
+            i.crop "#{w}x#{h}+#{x}+#{y}"
+
+            puts "Successfully croped"
+          end
+          img
+        end
+      end
+    end
   end
 
   # Override the filename of the uploaded files:

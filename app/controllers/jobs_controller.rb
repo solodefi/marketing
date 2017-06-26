@@ -1,6 +1,6 @@
 class JobsController < EndUserBaseController
 
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :browse_job_details]
 
   # GET /jobs
 	def index
@@ -65,6 +65,9 @@ class JobsController < EndUserBaseController
 
   def browse
     @jobs = Job.all.order("created_at DESC")
+  end
+
+  def browse_job_details
   end
 
   private

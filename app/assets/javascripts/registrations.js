@@ -8,7 +8,8 @@ ready = function() {
 			var reader = new FileReader();
 
 			reader.onload = function (e) {
-				$('#img-preview').attr('src', e.target.result);
+				$("#rotation_angle").val(0);
+				$('#img-profile-source').attr('src', e.target.result);
 
 				var cropzoom = $('#crop_container').cropzoom({ 
 				    width:500,
@@ -25,9 +26,9 @@ ready = function() {
 				      borderColorHover:'yellow'
 				    },
 				    image:{
-				      source:$('#img-preview').attr('src'),
-				      width:$('#img-preview').width,
-				      height:$('#img-preview').height,
+				      source:$('#img-profile-source').attr('src'),
+				      width:$('#img-profile-source').width,
+				      height:$('#img-profile-source').height,
 				      minZoom: 50,
 				      onRotate: function(imageObject, rotate_angle) {
 				        // Get rotatation angle
@@ -60,7 +61,7 @@ ready = function() {
 	}
 
 	$("#avatar-upload").change(function(){
-		// $('#img-preview').removeClass('hidden');
+		// $('#img-profile-source').removeClass('hidden');
 		readURL(this);
 	});
 }

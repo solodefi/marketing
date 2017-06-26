@@ -9,6 +9,11 @@
       <div class="panel-heading">
 
         <div class="form-group" align="center">
+          <% if resource.image? %>
+            <%= image_tag(resource.image, id: "croppedimage", alt: "", class: "avatar-circle-lg") %></br></br>
+          <% else %>
+            <%= image_tag('avatar.png', id: "croppedimage", alt: "", class: "avatar-circle-lg") %></br></br>
+          <% end %>
 
           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#uploadAvatar">Edit your Photo</button>
 
@@ -20,13 +25,22 @@
                   <h4 class="modal-title">Upload your photo</h4>
                 </div>
                 <div class="modal-body">
-                  <%= image_tag('avatar.png', id: "img-preview", width: 150, height: 150, alt: "", class: "hidden") %>
+                  <% if resource.image? %>
+                    <%= image_tag(resource.image, id: "img-profile-source", alt: "", class: "hidden") %>
+                  <% else %>
+                    <%= image_tag('avatar.png', id: "img-profile-source", alt: "", class: "hidden") %>
+                  <% end %>
+                  
+                  <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;" class = "hidden"></canvas>
                   <div id="crop_container">
-                    <% for attribute in [:zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h] %>
-                      <%= f.hidden_field attribute, :id => attribute %>
-                    <% end %>
+                    
                   </div>
                   </br></br>
+                  <div>
+                    <% for attribute in [:zoom_w, :zoom_h, :zoom_x, :zoom_y, :drag_x, :drag_y, :rotation_angle, :crop_x, :crop_y, :crop_w, :crop_h] %>
+                      <%= f.text_field attribute, :id => attribute %>
+                    <% end %>
+                  </div>
                   <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
                 </div>
                 <div class="modal-footer">
@@ -34,8 +48,7 @@
                 </div>
               </div>
             </div>
-          </div>
-          
+          </div>        
         </div>
 
         <div class="form-group">
@@ -56,8 +69,8 @@
         <% if current_user.user_type == "Freelancer" %>
 
           <div class="form-group">
-            <%= f.label :title, "TITLE" %>
-            <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter your title", required: true %>
+            <%= f.label :title, "JOB TITLE" %>
+            <%= f.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter your title statement", required: true %>
           </div>
           
           <div class="row">
