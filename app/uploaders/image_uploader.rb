@@ -53,11 +53,6 @@ class ImageUploader < CarrierWave::Uploader::Base
           w = model.crop_w.to_i
           h = model.crop_h.to_i
 
-          model.zoom_x = 0
-          model.zoom_y = 0
-          model.drag_x = 0
-          model.drag_y = 0
-
           puts "Parameters : "
           puts model.zoom_x
           puts model.zoom_w
@@ -99,8 +94,8 @@ class ImageUploader < CarrierWave::Uploader::Base
 
           img.combine_options do |i|
             # First we need to resize image with zoomed image. For more details you can find here "https://github.com/minimagick/minimagick"
-            # i.resize "#{model.zoom_w.to_i}x#{model.zoom_h.to_i}+0+0^\!"
-            i.resize "500x388+0+0^\!"
+            i.resize "#{model.zoom_w}x#{model.zoom_h}+0+0^\!"
+            # i.resize "500x388+0+0^\!"
             # Rotate zoomed image
             i.rotate(model.rotation_angle.to_i)
             # Crop zoomed and rotated image

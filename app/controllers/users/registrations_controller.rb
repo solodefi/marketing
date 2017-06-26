@@ -21,8 +21,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     resource.update_without_password(user_params)
-
-    flash.now[:notice] = "width: " + resource.zoom_w + ", height: " + resource.zoom_h
     
     resource.image.recreate_versions! if resource.image?
 

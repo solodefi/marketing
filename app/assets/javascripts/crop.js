@@ -152,6 +152,10 @@ var cropbuttonclick = function() {
   c.width = crop_container.offsetWidth; c.height = crop_container.offsetHeight;
   document.getElementById('zoom_w').value = Math.floor(img.width * aspectRatio);
   document.getElementById('zoom_h').value = Math.floor(img.height * aspectRatio);
+  document.getElementById('zoom_x').value = 0;
+  document.getElementById('zoom_y').value = 0;
+  document.getElementById('drag_x').value = 0;
+  document.getElementById('drag_y').value = 0;
 
   console.log(document.getElementById('zoom_w').value);
   console.log(document.getElementById('zoom_h').value);
