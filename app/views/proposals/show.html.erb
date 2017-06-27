@@ -17,13 +17,17 @@
       
       <div class="col-md-10">
 
-        <div class="row" style="display: flex;">
-          <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-8">
             <h3> <%= @proposal.user.name %> </h3>
           </div>
 
-          <div class="col-md-3">
-            <%= button_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @proposal.user.id), {method: 'post', class: "btn btn-info", style: "margin-top:15px;"}%>
+          <div class="col-md-2">
+            <%= button_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @proposal.user_id), {method: 'post', class: "btn btn-info", style: "margin-top:15px; width: 100px;"} %>
+          </div>
+            
+          <div class="col-md-2">
+            <%= button_to 'Hire', hire_freelancer_jobs_path(job_id: @proposal.job_id, freelancer_id: @proposal.user_id), {method: 'post', class: "btn btn-success", style: "margin-top:15px; width: 100px;"} %>
           </div>
 
         </div>

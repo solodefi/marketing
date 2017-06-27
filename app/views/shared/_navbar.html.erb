@@ -48,7 +48,21 @@
           </li>
         <% end %>
         <li>
-          <%= link_to 'MY JOBS', jobs_path, method: :get%>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:#ff9600">
+              MY JOBS
+              <span class="caret"></span>
+          </a>
+          <% if current_user.user_type == 'Client' %>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'OPEN JOBS', jobs_path, method: :get %></li>
+              <li><%= link_to 'IN PROGRESS', in_progress_jobs_path, method: :get %></li>
+            </ul>
+          <% else %>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'MY PROPOSALS', jobs_path, method: :get %></li>
+              <li><%= link_to 'IN PROGRESS', in_progress_jobs_path, method: :get %></li>
+            </ul>
+          <% end %>
         </li>
         <li>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:#ff9600">

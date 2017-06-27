@@ -5,11 +5,13 @@ class JobsController < EndUserBaseController
   # GET /jobs
 	def index
     if current_user.user_type == 'Client'
-      @jobs = current_user.jobs.order("created_at DESC")
+      @jobs = current_user.jobs.where(:status => 'open').order("created_at DESC")
     else
       @jobs = Array.new
       current_user.proposals.each do |p|
-        @jobs.append(p.job)
+        if p.job.status == 'open'
+          @jobs.append(p.job)
+        end
       end
       @jobs.sort! { |a,b| b.created_at <=> a.created_at}
     end
@@ -70,7 +72,33 @@ class JobsController < EndUserBaseController
   def browse_job_details
   end
 
-  private
+  def in_progress
+    @jobs = current_user.jobs.where(:status => 'progress').order("created_at DESC")
+  end
+
+  def jobs_hired
+  end
+
+  def hire_freelancer
+    job = Job.find(params[:job_id])
+    freelancer = User.find(params[:freelancer_id])
+    job.status = 'progress'
+    job.started_at = Time.now
+    job.freelancer_id = params[:freelancer_id]
+
+
+    respond_to do |format|
+      if job.save
+        format.html { redirect_to in_progress_jobs_path, notice: 'Job has been successfully updated.' }
+      else
+        format.html { redirect_to in_progress_jobs_path, notice: 'Failed to hire the freelancer. Please try again later.' }
+      end
+      
+    end
+
+  end
+
+private
 
   # User callbacks to share common setup or contraints between actions
   def set_job
@@ -80,6 +108,10 @@ class JobsController < EndUserBaseController
   # Strong params
   def job_params
     params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :profession_id, :category_ids => [])
+  end
+
+  def hire_freelancer_params
+    params.permit(:job_id, :freelancer_id)
   end
 
 end

@@ -28,7 +28,7 @@ class ProposalsController < EndUserBaseController
 
     respond_to do |format|
       if @proposal.save
-        format.html { redirect_to @proposal, notice: 'Your proposal has been sent successfully.' }
+        format.html { redirect_to @proposal.job, notice: 'Your proposal has been sent successfully.' }
       else
         format.html { render :new }
       end

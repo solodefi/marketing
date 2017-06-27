@@ -1,0 +1,54 @@
+<div class="container custom-container">
+  <% if @jobs.count > 0 %>
+    <% @jobs.each do |job| %>
+      <div class="custom-table-cell">
+        <div class="row"> 
+          <div class="col-md-9">
+            <h3><%= job.title %><h3>
+            <!-- <%= link_to job.title, job, {method: :get, class: "custom-table-cell-title-link"} %> -->
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <span class="less-highlight">Total Spent : </span>
+            <span>£<%= job.price %></span>
+          </div>
+          <div class="col-md-6">
+            <span class="glyphicon glyphicon-calendar"></span>
+            <span class="less-highlight">Time : </span>
+            <span><%= job.time_duration %></span>
+          </div>
+          <div class="col-md-3">
+            <span class="glyphicon glyphicon-time"></span>
+            <span class="less-highlight">Started</span>
+            <span><%= time_ago_in_words(job.started_at) %></span>
+            <span class="less-highlight">ago</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="custom-table-cell-description-details"><%= job.description %></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="less-highlight">Hired : </span>
+            <span><%= job.freelancer.name %></span>
+          </div> 
+          <div class="col-md-6">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="less-highlight">Location : </span>
+            <span><%= job.postcode %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="no-content-fill">
+      <h3> No active job ... </h3>
+    </div>
+  <% end %>
+  
+</div>

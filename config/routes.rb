@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     collection do
       get :browse
       get :browse_job_details
+      get :in_progress
+      post :hire_freelancer
     end
   end
 

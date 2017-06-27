@@ -53,5 +53,5 @@
 </div>
 
 <div class="container">
-  <%= button_to 'Submit A Proposal', new_proposal_path(:job_id => @job.id), {method: :get, class: "btn btn-warning pull-right", style: "padding:15px;"}%>
+  <%= link_to 'Submit A Proposal', new_proposal_path(:job_id => @job.id), {method: :get, class: "btn btn-warning pull-right", style: "padding:15px;"}%>
 </div>
