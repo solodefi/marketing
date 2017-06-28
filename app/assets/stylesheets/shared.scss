@@ -25,6 +25,7 @@ body {
 .custom-container {
   margin-top: 20px;
   margin-bottom: 20px;
+  padding: 20px;
   border: 1px solid lightgrey;
   background-color: #f8f8f8;
 }
@@ -42,7 +43,7 @@ body {
 /* Set table cell's style
 -------------------------------------------------- */
 .custom-table-cell {
-  margin: 2px;
+  margin: 20px;
   border-bottom: 1px solid lightgrey;
 }
 

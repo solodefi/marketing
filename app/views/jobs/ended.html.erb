@@ -1,5 +1,5 @@
 <div class="container">
-  <h4>My Jobs in progress</h4>
+  <h4>Ended Jobs</h4>
 </div>
 
 <div class="container custom-container">
@@ -10,7 +10,7 @@
 
           <div class="col-md-6">
             <div class="row">
-              <%= link_to job.title, in_progress_details_jobs_path(id: job.id), {method: :get, class: "custom-table-cell-title-link"} %>
+              <%= link_to job.title, ended_details_jobs_path(id: job.id), {method: :get, class: "custom-table-cell-title-link"} %>
             </div>
             <div class="row">
               <span class="glyphicon glyphicon-record"></span>
@@ -33,8 +33,13 @@
           <div class="col-md-3">
             <div class="row">
               <span class="glyphicon glyphicon-time"></span>
-              <span class="less-highlight">Started </span>
+              <span class="less-highlight">Started at</span>
               <span><%= job.started_at.to_date %></span>
+            </div>
+            <div class="row">
+              <span class="glyphicon glyphicon-time"></span>
+              <span class="less-highlight">Ended at</span>
+              <span><%= job.ended_at.to_date %></span>
             </div>
           </div>
 
@@ -43,7 +48,7 @@
     <% end %>
   <% else %>
     <div class="no-content-fill">
-      <h3> No active job ... </h3>
+      <h3> No Archived Job ... </h3>
     </div>
   <% end %>
   

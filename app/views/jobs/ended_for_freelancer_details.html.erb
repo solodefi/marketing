@@ -1,0 +1,118 @@
+<div class="container">
+  <h4>Ended Job Details</h4>
+</div>
+<div class="container custom-container">
+  <div class="row">
+    <div class="col-md-6">
+      <h4><%= @job.title %></h4>
+    </div>
+    <div class="col-md-3">
+      <span class="glyphicon glyphicon-time"></span>
+      <span class="less-highlight">Started </span>
+      <span><%= @job.started_at.to_date %></span>
+    </div>
+    <div class="col-md-3">
+      <span class="glyphicon glyphicon-time"></span>
+      <span class="less-highlight">Ended </span>
+      <span><%= @job.ended_at.to_date %></span>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <p class="custom-table-cell-description-details"><%= @job.description %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <span class="less-highlight">Budget : </span>
+      <span>£ <%= @job.price %></span>
+    </div>
+    <div class="col-md-4">
+      <span class="less-highlight">Earned : </span>
+      <span>£ 0</span>
+    </div>
+    <div class="col-md-4">
+      <span class="glyphicon glyphicon-map-marker"></span>
+      <span class="less-highlight">Location : </span>
+      <span><%= @job.postcode %></span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h5> - - - Client - - - </h5>
+</div>
+
+<div class="container custom-container">
+  <div class="row">
+
+    <div class="col-md-2">
+      <div class="profile-header-container">
+        <div class="profile-header-img">
+          <%= show_avatar(@job.user, "avatar-circle") %>
+        </div>
+      </div> 
+    </div>
+    
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-12">
+          <h3><%= @job.user.name %></h3>
+        </div>
+      </div>
+
+      </br>
+      <div class="row">
+        <%= link_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @job.user_id), {method: 'post', class: "btn btn-info", style: "width: 100px;"} %>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="container custom-container">
+  <% if @job.freelancer_review.present? %>
+    <div class="row custom-table-cell" style="margin: 10px;">
+      <h5>Your Review to the client</h5>
+    </div>
+    <div class = "row" style="margin-left: 30px;">
+      <div class="row">
+        <div id="hearts" class="starrr" data-rating=<%= @job.freelancer_review.score %> style="pointer-events: none" ></div>
+        <span id="count"><%= @job.freelancer_review.score %></span> star(s)
+      </div>
+      <div class="row">
+        <p><%= @job.freelancer_review.notes %></p>
+      </div>
+    </div>
+
+    <div class="row custom-table-cell" style="margin: 10px;">
+      <h5>Client's review</h5>
+    </div>
+    <% if @job.client_review.present? %>
+      <div class = "row" style="margin-left: 30px;">
+        <div class="row">
+          <div id="hearts" class="starrr" data-rating=<%= @job.client_review.score %> style="pointer-events: none" ></div>
+          <span id="count"><%= @job.client_review.score %></span> star(s)
+        </div>
+        <div class="row">
+          <p><%= @job.client_review.notes %></p>
+        </div>
+      </div>
+    <% else %>
+      <div class="row" style="margin-left: 10px;">
+        <p>The client has not leave a review for you.</p>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="row">
+      <div class="col-md-9">
+        <p>You can see the review written by the client after you leave a review to the client.<p>
+      </div>
+      <div class="col-md-3">
+        <%= link_to 'Leave a review', new_freelancer_review_path(:job_id => @job.id),  method: :get,  class: "btn btn-success pull-right", style: "width: 150px;" %>
+      </div>
+    </div>
+  <% end %>
+</div>

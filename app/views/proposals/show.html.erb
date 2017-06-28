@@ -19,15 +19,15 @@
 
         <div class="row">
           <div class="col-md-8">
-            <h3> <%= @proposal.user.name %> </h3>
+            <%= link_to @proposal.user.name, profile_index_path(user_id: @proposal.user_id), {method: :get, class: "custom-table-cell-title-link"} %>
           </div>
 
           <div class="col-md-2">
-            <%= button_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @proposal.user_id), {method: 'post', class: "btn btn-info", style: "margin-top:15px; width: 100px;"} %>
+            <%= link_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @proposal.user_id), {method: 'post', class: "btn btn-info", style: "margin-top:15px; width: 100px;"} %>
           </div>
             
           <div class="col-md-2">
-            <%= button_to 'Hire', hire_freelancer_jobs_path(job_id: @proposal.job_id, freelancer_id: @proposal.user_id), {method: 'post', class: "btn btn-success", style: "margin-top:15px; width: 100px;"} %>
+            <%= link_to 'Hire', hire_freelancer_jobs_path(id: @proposal.job_id, freelancer_id: @proposal.user_id), data: {:confirm => "Are you sure you want to hire the freelancer?"}, method: 'post', class: "btn btn-success", style: "margin-top:15px; width: 100px;" %>
           </div>
 
         </div>

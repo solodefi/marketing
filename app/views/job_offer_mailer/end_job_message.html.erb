@@ -1,0 +1,36 @@
+<div class="container">
+	<h4>Your job has been ended by <%= @job.user.name %>! Please check the job details below.</h4>
+</div>
+
+<div class="container custom-container">
+  <div class="row">
+    <div class="col-md-9">
+      <h4><%= @job.title %></h4>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <p class="custom-table-cell-description-details"><%= @job.description %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <span class="less-highlight">Budget : </span>
+      <span>£ <%= @job.price %></span>
+    </div>
+    <div class="col-md-4">
+      <span class="less-highlight">Spent : </span>
+      <span>£ 0</span>
+    </div>
+    <div class="col-md-4">
+      <span class="glyphicon glyphicon-map-marker"></span>
+      <span class="less-highlight">Location : </span>
+      <span><%= @job.postcode %></span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h4>Please find a lot more jobs on Structured Thinking </h4>
+</div>

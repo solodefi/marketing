@@ -1,6 +1,6 @@
 class JobsController < EndUserBaseController
 
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :browse_job_details]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :browse_job_details, :in_progress_details, :ended_details, :hire_freelancer, :end_contract, :in_progress_by_freelancer_details, :ended_for_freelancer_details]
 
   # GET /jobs
 	def index
@@ -65,6 +65,55 @@ class JobsController < EndUserBaseController
   def destroy
   end
 
+  # For Client
+  def in_progress
+    @jobs = current_user.jobs.where(:status => 'progress').order("started_at DESC")
+  end
+
+  def in_progress_details
+  end
+
+  def ended
+    @jobs = current_user.jobs.where(:status => 'end').order("ended_at DESC")
+  end
+
+  def ended_details
+  end
+
+  def leave_client_feedback
+  end
+
+  def hire_freelancer
+    @job.status = 'progress'
+    @job.started_at = Time.now
+    @job.freelancer_id = params[:freelancer_id]
+
+    respond_to do |format|
+      if @job.save
+        JobOfferMailer.hire_job_message(@job).deliver
+        format.html { redirect_to in_progress_jobs_url, notice: 'Job has been successfully offered.' }
+      else
+        format.html { redirect_to jobs_url, notice: 'Failed to hire the freelancer. Please try again later.' }
+      end
+    end
+  end
+
+  def end_contract
+    @job.status = 'end'
+    @job.ended_at = Time.now
+
+    respond_to do |format|
+      if @job.save
+        JobOfferMailer.end_job_message(@job).deliver
+        format.html { redirect_to new_client_review_url(:job_id => @job.id), notice: 'Job has been successfully ended.' }
+      else
+        format.html { redirect_to in_progress_jobs_url, notice: 'Failed to end the job. Please try again later.' }
+      end
+    end
+
+  end
+
+  # For Freelancer
   def browse
     @jobs = Job.all.order("created_at DESC")
   end
@@ -72,30 +121,30 @@ class JobsController < EndUserBaseController
   def browse_job_details
   end
 
-  def in_progress
-    @jobs = current_user.jobs.where(:status => 'progress').order("created_at DESC")
-  end
-
-  def jobs_hired
-  end
-
-  def hire_freelancer
-    job = Job.find(params[:job_id])
-    freelancer = User.find(params[:freelancer_id])
-    job.status = 'progress'
-    job.started_at = Time.now
-    job.freelancer_id = params[:freelancer_id]
-
-
-    respond_to do |format|
-      if job.save
-        format.html { redirect_to in_progress_jobs_path, notice: 'Job has been successfully updated.' }
-      else
-        format.html { redirect_to in_progress_jobs_path, notice: 'Failed to hire the freelancer. Please try again later.' }
+  def in_progress_by_freelancer
+    @jobs = Array.new
+    current_user.proposals.each do |p|
+      if p.job.status == 'progress'
+        @jobs.append(p.job)
       end
-      
     end
+    @jobs.sort! { |a,b| b.started_at <=> a.started_at}
+  end
 
+  def in_progress_by_freelancer_details
+  end
+
+  def ended_for_freelancer
+    @jobs = Array.new
+    current_user.proposals.each do |p|
+      if p.job.status == 'end'
+        @jobs.append(p.job)
+      end
+    end
+    @jobs.sort! { |a,b| b.ended_at <=> a.ended_at}
+  end
+
+  def ended_for_freelancer_details
   end
 
 private

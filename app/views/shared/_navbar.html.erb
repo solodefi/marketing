@@ -56,11 +56,13 @@
             <ul class="dropdown-menu">
               <li><%= link_to 'OPEN JOBS', jobs_path, method: :get %></li>
               <li><%= link_to 'IN PROGRESS', in_progress_jobs_path, method: :get %></li>
+              <li><%= link_to 'ARCHIVED', ended_jobs_path, method: :get %></li>
             </ul>
           <% else %>
             <ul class="dropdown-menu">
               <li><%= link_to 'MY PROPOSALS', jobs_path, method: :get %></li>
-              <li><%= link_to 'IN PROGRESS', in_progress_jobs_path, method: :get %></li>
+              <li><%= link_to 'IN PROGRESS', in_progress_by_freelancer_jobs_path, method: :get %></li>
+              <li><%= link_to 'ARCHIVED', ended_for_freelancer_jobs_path, method: :get %></li>
             </ul>
           <% end %>
         </li>

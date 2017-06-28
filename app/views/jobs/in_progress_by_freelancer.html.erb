@@ -10,12 +10,12 @@
 
           <div class="col-md-6">
             <div class="row">
-              <%= link_to job.title, in_progress_details_jobs_path(id: job.id), {method: :get, class: "custom-table-cell-title-link"} %>
+              <%= link_to job.title, in_progress_by_freelancer_details_jobs_path(id: job.id), {method: :get, class: "custom-table-cell-title-link"} %>
             </div>
             <div class="row">
               <span class="glyphicon glyphicon-record"></span>
-              <span class="less-highlight">Hired : </span>
-              <span><%= job.freelancer.name %></span>
+              <span class="less-highlight">Hired by </span>
+              <span><%= job.user.name %></span>
             </div>
           </div>
 
@@ -25,7 +25,7 @@
               <span>£ <%= job.price %></span>
             </div>
             <div class="row">
-              <span class="less-highlight">Spent : </span>
+              <span class="less-highlight">Earned : </span>
               <span>£ 0</span>
             </div>
           </div>

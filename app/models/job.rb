@@ -47,6 +47,20 @@ class Job < ApplicationRecord
 		str_to_show
 	end
 
+	def time_duration_spent
+		str_to_show = ""
+		if self.started_at.present? && self.ended_at.present?
+			str_to_show = self.started_at.to_date.to_s + " to " + self.ended_at.to_date.to_s
+		elsif self.started_at.present? && !self.ended_at.present?
+			str_to_show = "start at " + self.started_at.to_date.to_s
+		elsif !self.started_at.present? && self.ended_at.present?
+			str_to_show = "end by " + self.ended_at.to_date.to_s
+		else
+			str_to_show = "N/A"
+		end
+		str_to_show
+	end
+
 	def str_categories
 		categories.join(', ')
 	end

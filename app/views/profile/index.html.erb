@@ -46,7 +46,6 @@
   </div>
 
   <div class="row">
-
     <div class="col-md-12">
       <h3>OVERVIEW</h3>
     </div>
@@ -54,6 +53,63 @@
     <div class="col-md-12">
       <p class="custom-table-cell-description"><%= @user.overview %></p>
     </div>
-
   </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Work History</h3>
+    </div>
+    
+    <% 
+      @jobs = Array.new
+      @user.proposals.each do |p|
+        if p.job.status == 'end'
+          @jobs.append(p.job)
+        end
+      end
+      @jobs.sort! { |a,b| b.ended_at <=> a.ended_at}
+    %>
+
+    <% if @jobs.count > 0 %>
+      <% @jobs.each do |job| %>
+        <div class="row custom-table-cell">
+          <div class="col-md-9">
+            <div class="row">
+              <h4><%= job.title %></h4>
+            </div>
+
+            <div class="row">
+              <p><%= job.time_duration_spent %></p>
+            </div>
+
+            <% if job.client_review.present? %>
+              <div class = "row" style="margin-left: 30px;">
+                <div class="row">
+                  <div id="hearts" class="starrr" data-rating=<%= job.client_review.score %> style="pointer-events: none" ></div>
+                  <span id="count"><%= job.client_review.score %></span> star(s)
+                </div>
+
+                <div class="row">
+                  <p><%= job.client_review.notes %></p>
+                </div>
+              </div>
+            <% else %>
+              <div class = "row" style="margin-left: 30px;">
+                <p> No Review </p>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="col-md-3">
+            <h5>£ <%= job.price %> earned</h5>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-md-12">
+        <p class="custom-table-cell-description">No work history on Structured Thinking</p>
+      </div>
+    <% end %>
+  </div>
+
 </div>

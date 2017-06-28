@@ -3,7 +3,7 @@ class ProposalsController < EndUserBaseController
   before_action :set_proposal, only: [:show, :edit, :update, :destroy]
 
   # GET /proposals
-  def index    
+  def index
   end
 
   # GET /proposals/1
@@ -53,7 +53,7 @@ class ProposalsController < EndUserBaseController
   def destroy
   end
 
-  private
+private
 
   # User callbacks to share common setup or contraints between actions
   def set_proposal
@@ -64,4 +64,3 @@ class ProposalsController < EndUserBaseController
     params.require(:proposal).permit(:price, :description, :start_date, :end_date)
   end
 end
-

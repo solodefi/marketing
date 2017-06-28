@@ -1,0 +1,88 @@
+<div class="container">
+  <h4>In Progress Job Details</h4>
+  <%= link_to 'End Job', end_contract_jobs_path(:id => @job.id),  method: 'post',  data: {:confirm => "Are you sure you want to end the job?"}, class: "btn btn-danger pull-right", style: "width: 100px;" %>
+</div>
+<div class="container custom-container">
+  <div class="row">
+    <div class="col-md-9">
+      <h4><%= @job.title %></h4>
+    </div>
+    <div class="col-md-3">
+      <span class="glyphicon glyphicon-time"></span>
+      <span class="less-highlight">Started </span>
+      <span><%= @job.started_at.to_date %></span>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <p class="custom-table-cell-description-details"><%= @job.description %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <span class="less-highlight">Budget : </span>
+      <span>£ <%= @job.price %></span>
+    </div>
+    <div class="col-md-4">
+      <span class="less-highlight">Spent : </span>
+      <span>£ 0</span>
+    </div>
+    <div class="col-md-4">
+      <span class="glyphicon glyphicon-map-marker"></span>
+      <span class="less-highlight">Location : </span>
+      <span><%= @job.postcode %></span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h5> - - - Hired Freelancer - - - </h5>
+</div>
+
+<div class="container custom-container">
+  <div class="row">
+
+    <div class="col-md-2">
+      <div class="profile-header-container">
+        <div class="profile-header-img">
+          <%= show_avatar(@job.freelancer, "avatar-circle-lg") %>
+        </div>
+      </div> 
+    </div>
+    
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-10">
+        <%= link_to @job.freelancer.name, profile_index_path(user_id: @job.freelancer_id), {method: :get, class: "custom-table-cell-title-link"} %>
+        </div>
+
+        <div class="col-md-2">
+          <%= link_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @job.freelancer_id), {method: 'post', class: "btn btn-info", style: "margin-top:15px; width: 100px;"} %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4> <%= @job.freelancer.title %> </h4>
+        </div>
+      </div>
+
+      </br>
+
+      <div class="row">
+        <div class="col-md-3">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          <span class="less-highlight">Location : </span>
+          <span><%= @job.freelancer.postcode %></span>
+        </div>
+
+        <div class="col-md-9">
+          <span class="less-highlight">Category : </span>
+          <span><%= @job.freelancer.profession %></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

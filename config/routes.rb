@@ -47,6 +47,12 @@ Rails.application.routes.draw do
   resources :profile, :only => [:index] do
   end
 
+  resources :client_reviews, :only => [:new, :create] do
+  end
+
+  resources :freelancer_reviews, :only => [:new, :create] do
+  end
+
   resources :proposals, :except => [:edit, :destroy]
   resources :categories
 
@@ -55,7 +61,15 @@ Rails.application.routes.draw do
       get :browse
       get :browse_job_details
       get :in_progress
+      get :in_progress_details
+      get :ended
+      get :ended_details
       post :hire_freelancer
+      post :end_contract
+      get :in_progress_by_freelancer
+      get :in_progress_by_freelancer_details
+      get :ended_for_freelancer
+      get :ended_for_freelancer_details
     end
   end
 

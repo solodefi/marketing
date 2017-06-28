@@ -1,7 +1,6 @@
-class ContactUsMailer < ActionMailer::Base
+class ContactUsMailer < ApplicationMailer
 
-  default from: "Structured Thinking <akiradeves@gmail.com>"
-  default to: "info@structured-thinking.co.uk"
+  
 
   def new_message(message)
     @message = message
