@@ -8,6 +8,10 @@ class AboutController < ApplicationController
 
   end
 
+  def privacy_policy
+    
+  end
+
   def contact_us
     @message = ContactUsMessage.new
   end

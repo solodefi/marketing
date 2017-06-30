@@ -94,6 +94,25 @@ var cropbuttonclick = function() {
   var c = document.getElementById("myCanvas");
   var ctx = c.getContext("2d");
   var img = document.getElementById("img-profile-source");
+
+  // correct the orientation
+  // var exif = EXIF.readFromBinaryFile(img.src);
+
+  //   switch(exif.Orientation){
+
+  //      case 8:
+  //          ctx.rotate(90*Math.PI/180);
+  //          break;
+  //      case 3:
+  //          ctx.rotate(180*Math.PI/180);
+  //          break;
+  //      case 6:
+  //          ctx.rotate(-90*Math.PI/180);
+  //          break;
+
+
+  //   }
+  // end correction
   
   var widthRatio = (crop_container.offsetWidth / img.width);
   var heightRatio = (crop_container.offsetHeight / img.height);

@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     collection do
       get :how_it_works
       get :contact_us
+      get :privacy_policy
+      get :terms
       post :send_contact_us_message
     end
   end

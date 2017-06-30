@@ -20,3 +20,20 @@ color: #FFF;
 .h1 small {
 font-size: 24px;
 }
+
+.privacy-container ul {
+	list-style-type: none;
+}
+
+.terms-container ol {
+	counter-reset: item;
+}
+
+.terms-container li {
+	display: block;
+}
+
+.terms-container li:before {
+	content: counters(item, ".") " "; 
+	counter-increment: item;
+}
