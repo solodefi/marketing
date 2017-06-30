@@ -1,7 +1,7 @@
 <div class = "container" align = "center" id = "edit_profile_form">
   <div class="col-lg-12">
   </br>
-  <h1 align="center">Change your password</h1>
+  <h2 align="center">Change your password</h2>
   </br>
   <%= form_for(@user, url: update_settings_path, html: { method: :patch }) do |f| %>
     <%= devise_error_messages! %>
@@ -30,5 +30,28 @@
       </div>
     </div>
   <% end %>
+
+  <% if @user.user_type == "Freelancer" %>
+    </br>
+    <h2 align="center">Set Your Get Paid Method</h2>
+    </br>
+    <%= form_for(@user, url: update_get_paid_email_path, html: { method: :patch }) do |f| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+
+          <div class="form-group" >
+            <%= f.label :get_paid_email, "EMAIL" %>
+            <%= f.email_field :get_paid_email, autofocus: true, class: "form-control", placeholder: "Email: example@domain.com", required: true %>
+          </div>
+
+          <br>
+          <div class="form-group" id = "button">
+            <%= f.submit "Submit", class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  
   </div>
 </div>

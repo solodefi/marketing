@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
     get '/settings', :action => 'settings', :controller => 'users/registrations'
     patch '/update_settings', :action => 'update_settings', :controller => 'users/registrations'
+    patch '/update_get_paid_email', :action => 'update_get_paid_email', :controller => 'users/registrations'
   end
 
   authenticated :user do
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
   end
 
   resources :profile, :only => [:index] do
+    get :freelancer_search, on: :collection
   end
 
   resources :client_reviews, :only => [:new, :create] do
@@ -53,11 +55,34 @@ Rails.application.routes.draw do
   resources :freelancer_reviews, :only => [:new, :create] do
   end
 
+  resources :transactions, :only => [:new, :create] do
+    collection do
+      get :client_history
+      get :freelancer_history
+    end
+  end
+
+  resources :deposits, :only => [:new] do
+    collection do
+      get :on_confirm
+      get :on_success
+      get :on_failed
+      post :perform_purchase
+    end
+  end
+
+  resources :withdraws, :only => [:new, :create] do 
+    collection do
+      get :on_failed
+    end
+  end
+
   resources :proposals, :except => [:edit, :destroy]
   resources :categories
 
   resources :jobs do
     collection do
+      get :job_search
       get :browse
       get :browse_job_details
       get :in_progress

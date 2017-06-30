@@ -9,6 +9,8 @@ class Job < ApplicationRecord
 	has_one :freelancer_review, dependent: :destroy
 	has_one :client_review, dependent: :destroy
 
+	has_many :transactions
+
 	serialize :category_ids, Array
 
 	enum status: [ :open, :progress, :end]
@@ -20,6 +22,16 @@ class Job < ApplicationRecord
 
 	scope :title, -> (title) { where("lower(title) like ?", "%#{title.downcase}%") }
 	scope :category, -> (category_id) { where("category_ids like ?", "%#{category_id}%") }
+
+	def spent
+		success_transactions = self.transactions.where(status: "success", sender_id: self.user_id)
+
+		total_amount = success_transactions.sum(:amount)
+	end
+
+	def earned_by_freelancer
+		spent * 95 / 100
+	end
 
 	def categories
 

@@ -1,6 +1,9 @@
 <div class="container">
   <h4>In Progress Job Details</h4>
-  <%= link_to 'End Job', end_contract_jobs_path(:id => @job.id),  method: 'post',  data: {:confirm => "Are you sure you want to end the job?"}, class: "btn btn-danger pull-right", style: "width: 100px;" %>
+  <div class="row pull-right">
+    <%= link_to 'Send Payment', new_transaction_path(:job_id => @job.id),  method: 'get', class: "btn btn-success pull-left", style: "width: 150px; margin-right:10px;" %>
+    <%= link_to 'End Job', end_contract_jobs_path(:id => @job.id),  method: 'post',  data: {:confirm => "Are you sure you want to end the job?"}, class: "btn btn-danger pull-right", style: "width: 150px;" %>
+  </div>
 </div>
 <div class="container custom-container">
   <div class="row">
@@ -26,7 +29,7 @@
     </div>
     <div class="col-md-4">
       <span class="less-highlight">Spent : </span>
-      <span>£ 0</span>
+      <span>£ <%= @job.spent %> </span>
     </div>
     <div class="col-md-4">
       <span class="glyphicon glyphicon-map-marker"></span>

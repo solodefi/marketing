@@ -1,3 +1,5 @@
+require 'active_merchant'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -53,4 +55,17 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
+    ActiveMerchant::Billing::PaypalExpressGateway.default_currency = 'GBP'
+    paypal_options = {
+      login: "akiramerchantpro_api1.gmail.com",
+      password: "LQ2QDFSDWC93T9DJ",
+      signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31ArkvjJJErd9xWV5MhFLu1EhZMZxA"
+    }
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
+
 end

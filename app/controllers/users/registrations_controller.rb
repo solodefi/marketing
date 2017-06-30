@@ -25,7 +25,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.image.recreate_versions! if resource.image?
 
     redirect_to path_to_redirect
-
   end
 
   # Settings - Email/Password Update
@@ -38,7 +37,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @user.update_with_password(update_password_params)
 
-    redirect_to path_to_redirect
+    redirect_to settings_path
+  end
+
+  def update_get_paid_email
+    @user = current_user
+    @user.update_without_password(update_get_paid_params)
+
+    redirect_to settings_path
   end
 
   # DELETE /resource
@@ -102,5 +108,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_password_params
     params.require(:user).permit(:password, :password_confirmation, :current_password)
+  end
+
+  def update_get_paid_params
+    params.require(:user).permit(:get_paid_email)
   end
 end

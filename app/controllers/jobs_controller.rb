@@ -2,6 +2,8 @@ class JobsController < EndUserBaseController
 
   before_action :set_job, only: [:show, :edit, :update, :destroy, :browse_job_details, :in_progress_details, :ended_details, :hire_freelancer, :end_contract, :in_progress_by_freelancer_details, :ended_for_freelancer_details]
 
+  before_action :authenticate_user!, except: [:job_search]
+
   # GET /jobs
 	def index
     if current_user.user_type == 'Client'
@@ -65,6 +67,32 @@ class JobsController < EndUserBaseController
   def destroy
   end
 
+  def job_search
+
+    @alljobs = Job.where(:status => 'open').order("created_at DESC")
+    @jobs = []
+    count = 0
+    @searchText = params[:searchText]
+    @searchText = @searchText.downcase()
+
+    @alljobs.each do |job|
+      if job.title.downcase().include?@searchText #job.title.find( params[ :searchText ])
+        @jobs[count] = job
+        count += 1
+      elsif job.description.downcase().include?@searchText
+        @jobs[count] = job
+        count += 1  
+      elsif job.str_categories.downcase().include?@searchText
+        @jobs[count] = job
+        count += 1 
+      elsif job.postcode.downcase().include?@searchText
+        @jobs[count] = job
+        count += 1 
+      end
+    end
+
+  end
+
   # For Client
   def in_progress
     @jobs = current_user.jobs.where(:status => 'progress').order("started_at DESC")
@@ -115,7 +143,7 @@ class JobsController < EndUserBaseController
 
   # For Freelancer
   def browse
-    @jobs = Job.all.order("created_at DESC")
+    @jobs = Job.where(:status => 'open').order("created_at DESC")
   end
 
   def browse_job_details

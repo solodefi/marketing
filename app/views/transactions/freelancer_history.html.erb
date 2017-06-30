@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="col-md-12  custom-container">
+    <p>Available Balance : £ <%= current_user.available_balance %></p>
+    <%= link_to 'Get Paid Now', new_withdraw_path, method: 'get', class: "btn btn-success", style: "margin-top:5px; width: 150px;" %>
+  </div>
+</div>
+
+
+<div class="container">
+
+  <h4>Transactions you received</h4>
+
+  <div class="col-md-12 custom-container">
+    <% if @transactions.count > 0 %>
+      <% @transactions.each do |transaction| %>
+        <div class="custom-table-cell">
+          <div class="row">
+            <div class="col-md-12">
+              <%= link_to transaction.job.title, transaction.job, {method: :get, class: "custom-table-cell-title-link"}%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <span class="less-highlight">From : </span>
+              <span><%= transaction.sender.name %></span>
+            </div>
+            <div class="col-md-2">
+              <span class="less-highlight">Amount : </span>
+              <span>£<%= transaction.amount %></span>
+            </div>
+            <div class="col-md-2">
+              <span class="less-highlight">Fee : </span>
+              <span>(£<%= transaction.amount * 5 /100 %>)</span>
+            </div>
+            <div class="col-md-2">
+              <span class="glyphicon glyphicon-calendar"></span>
+              <span><%= transaction.created_at %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="no-content-fill">
+        <h3> No transaction ... </h3>
+      </div>
+    <% end %>
+    
+  </div>
+  
+</div>
+
+<div class="container">
+
+  <h4>Withdraw history</h4>
+
+  <div class="col-md-12 custom-container">
+    <% if @withdraws.count > 0 %>
+      <% @withdraws.each do |withdraw| %>
+        <div class="custom-table-cell">
+          <div class="row">
+            <div class="col-md-6">
+              <span class="less-highlight">Withdraw to </span>
+              <span><%= withdraw.email %></span>
+            </div>
+            <div class="col-md-3">
+              <span class="less-highlight">Amount : </span>
+              <span>(£<%= withdraw.amount %>)</span>
+            </div>
+            <div class="col-md-3">
+              <span class="glyphicon glyphicon-calendar"></span>
+              <span><%= withdraw.created_at %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="no-content-fill">
+        <h3> No withdraw ... </h3>
+      </div>
+    <% end %>
+    
+  </div>
+  
+</div>

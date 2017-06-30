@@ -14,8 +14,13 @@
       <div class="col-md-10">
 
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-10">
             <h3> <%= @user.name %> </h3>
+          </div>
+          <div class="col-md-2">
+            <% if user_signed_in? && current_user.user_type == 'Client' && current_user.id != @user.id %>
+              <%= link_to 'Contact', conversations_path(sender_id: current_user.id, recipient_id: @user.id), {method: 'post', class: "btn btn-info", style: "margin-top:15px; width: 100px;"} %>
+            <% end %>
           </div>
         </div>
 
@@ -101,7 +106,7 @@
           </div>
 
           <div class="col-md-3">
-            <h5>£ <%= job.price %> earned</h5>
+            <h5>£ <%= job.earned_by_freelancer %> earned</h5>
           </div>
         </div>
       <% end %>

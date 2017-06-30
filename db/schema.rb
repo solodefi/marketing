@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623024109) do
+ActiveRecord::Schema.define(version: 20170630023941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,16 @@ ActiveRecord::Schema.define(version: 20170623024109) do
     t.integer  "recipient_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "deposits", force: :cascade do |t|
+    t.float    "amount"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "token"
+    t.string   "ip"
+    t.string   "payer_id"
   end
 
   create_table "freelancer_reviews", force: :cascade do |t|
@@ -129,6 +139,16 @@ ActiveRecord::Schema.define(version: 20170623024109) do
     t.datetime "updated_at",               null: false
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.float    "amount"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.integer  "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "job_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -154,8 +174,17 @@ ActiveRecord::Schema.define(version: 20170623024109) do
     t.text     "overview",               default: ""
     t.text     "skills"
     t.integer  "profession_id"
+    t.string   "get_paid_email"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "withdraws", force: :cascade do |t|
+    t.float    "amount"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
 end

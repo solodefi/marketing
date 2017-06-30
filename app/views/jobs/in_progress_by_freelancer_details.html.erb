@@ -25,7 +25,7 @@
     </div>
     <div class="col-md-4">
       <span class="less-highlight">Earned : </span>
-      <span>£ 0</span>
+      <span>£ <%= @job.earned_by_freelancer %></span>
     </div>
     <div class="col-md-4">
       <span class="glyphicon glyphicon-map-marker"></span>
@@ -47,7 +47,7 @@
         <div class="profile-header-img">
           <%= show_avatar(@job.user, "avatar-circle") %>
         </div>
-      </div> 
+      </div>
     </div>
     
     <div class="col-md-10">

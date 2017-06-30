@@ -1,0 +1,21 @@
+<div class="container">
+	</br>
+		<h2 align="center">Comfirm the payment to <%= @transaction.recipient.name %></h2>
+	</br>
+</div>
+
+<div class="container custom-container">
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <p> You are sending £ <%= @transaction.amount %> to <%= @transaction.recipient.name %> </p>
+    </div>
+
+    <div class="col-md-12">
+      <%= link_to 'Confirm', perform_purchase_deposits_path(transaction_id: @transaction.id, deposit_id: @deposit.id), method: 'post', class: "btn btn-success", style: "margin-top:15px; width: 130px;" %>
+    </div>
+
+  </div>
+
+</div>

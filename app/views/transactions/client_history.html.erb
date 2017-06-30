@@ -1,0 +1,39 @@
+
+<div class="container">
+
+  <h4>Transaction History</h4>
+
+  <div class="col-md-12 custom-container">
+    <% if @transactions.count > 0 %>
+      <% @transactions.each do |transaction| %>
+        <div class="custom-table-cell">
+          <div class="row">
+            <div class="col-md-12">
+              <%= link_to transaction.job.title, transaction.job, {method: :get, class: "custom-table-cell-title-link"}%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <span class="less-highlight">To : </span>
+              <span><%= link_to transaction.recipient.name, profile_index_path(user_id: transaction.recipient_id), {method: :get, class: "custom-table-cell-title-link"} %></span>
+            </div>
+            <div class="col-md-3">
+              <span class="less-highlight">Amount : </span>
+              <span>£<%= transaction.amount %></span>
+            </div>
+            <div class="col-md-3">
+              <span class="glyphicon glyphicon-calendar"></span>
+              <span><%= transaction.created_at %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="no-content-fill">
+        <h3> No transaction ... </h3>
+      </div>
+    <% end %>
+    
+  </div>
+  
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+
+  <% @users.each do |user| %>
+      <div class="container custom-container">
+        
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="profile-header-container">
+                <div class="profile-header-img">
+                  <%= show_avatar(user, "avatar-circle") %>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-10">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <%= link_to user.name, profile_index_path(user_id: user.id), {method: :get, class: "custom-table-cell-title-link"} %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <h4> <%= user.title %> </h4>
+                </div>
+              </div>
+
+              </br>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="glyphicon glyphicon-map-marker"></span>
+                  <span class="less-highlight">Location : </span>
+                  <span><%= user.postcode %></span>
+                </div>
+
+                <div class="col-md-9">
+                  <span class="less-highlight">Category : </span>
+                  <span><%= user.profession %></span>
+                </div>
+          
+                <div class="col-md-12">
+                  <p class="custom-table-cell-description"><%= user.overview[0..110] + "..." %></p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+      </div>
+  <% end %>
+
+</div>

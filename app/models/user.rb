@@ -11,6 +11,12 @@ class User < ApplicationRecord
   # Jobs that I worked/be working on, as a freelancer
   has_many :freelancing_jobs, :class_name => "Job", :foreign_key => :freelancer_id, dependent: :destroy
 
+  has_many :sent_transactions, :class_name => "Transaction", :foreign_key => :sender_id, dependent: :destroy
+  has_many :received_transactions, :class_name => "Transaction", :foreign_key => :recipient_id, dependent: :destroy
+
+  has_many :withdraws
+  has_many :deposits
+
   belongs_to :profession
   serialize :skills, Array
 
@@ -36,6 +42,12 @@ class User < ApplicationRecord
 
   def to_s
     name
+  end
+
+  def available_balance
+    total_earned = self.received_transactions.where(status: 'success').sum(:amount) * 95 / 100
+    total_withdraws = self.withdraws.sum(:amount)
+    available_balance = total_earned - total_withdraws
   end
 
 end
