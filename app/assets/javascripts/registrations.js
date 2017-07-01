@@ -5,6 +5,15 @@ ready = function() {
 	function readURL(input) {
 
 		if (input.files && input.files[0]) {
+
+			loadImage(
+		        input.files[0],
+		        function (img) {
+		            document.body.appendChild(img);
+		        },
+		        {maxWidth: 600} // Options
+		    );
+
 			var reader = new FileReader();
 
 			reader.onload = function (e) {
@@ -63,6 +72,7 @@ ready = function() {
 	}
 
 	$("#avatar-upload").change(function(){
+
 		// $('#img-profile-source').removeClass('hidden');
 		readURL(this);
 	});
