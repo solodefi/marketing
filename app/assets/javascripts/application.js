@@ -17,6 +17,7 @@
 //= require select2
 //= require_tree .
 
+
 var ready;
 ready = function() {
 

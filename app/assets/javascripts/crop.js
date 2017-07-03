@@ -5,66 +5,87 @@ ready = function() {
 	var canvasHeight = 500.0;
 	if (window.innerWidth < 500) {
 		canvasWidth = 260.0;
-		canvasHeight = 260.0;
+		//canvasHeight = 260.0;
 	}
-	if (document.getElementById("myCanvas") !== null ) {
-		document.getElementById("myCanvas").width = canvasWidth;
-	}
+  //canvasHeight = canvasWidth / $('#img-profile-source').width * $('#img-profile-source').height;
+  var imgwidth = 1; 
+  var imgheight = 1;
+  var imgprofile = document.getElementById('img-profile-source');
 
-	if (document.getElementById("myCanvas") !== null ) {
-		document.getElementById("myCanvas").height = canvasHeight;
-	}
-	
-	var cropzoom = $('#crop_container').cropzoom({ 
-	  width:canvasWidth,
-	  height:canvasHeight,
-	  bgColor: '#CCC',
-	  enableRotation:true,
-	  enableZoom:false,
-	  zoomSteps:10,
-	  rotationSteps:10,
-	  selector:{
-	  	w: 150,
-        h: 150,
-	    centered:true,
-	    startWithOverlay: true,
-	    borderColor:'blue',
-	    borderColorHover:'yellow'
-	  },
-	  image:{
-	    source:$('#img-profile-source').attr('src'),
-	    width:$('#img-profile-source').width,
-	    height:$('#img-profile-source').height,
-	    minZoom: 50 ,
-	    onRotate: function(imageObject, rotate_angle) {
-	      // Get rotatation angle
-	      $("#rotation_angle").val(rotate_angle);
-	    },
-	    onZoom: function(imageObject, dimensions) {
-	      // Get zoom coordinates
-	    
-	      $('#zoom_w').val(dimensions.w);
-	      $('#zoom_h').val(dimensions.h);
-	      $('#zoom_x').val(dimensions.posX);
-	      $('#zoom_y').val(dimensions.posY);
+  if (imgprofile !== null)
+    imgprofile.onload = function() {
+      imgwidth = this.width;
+      imgheight = this.height;
+      console.log("imgwidth: ", imgwidth);
+      console.log("imgheight", imgheight);
+    
 
-	      // Set drag coordinates to zero when image is zoomed
-	      $('#drag_x').val(0);
-	      $('#drag_y').val(0);
+      canvasHeight = canvasWidth / imgwidth * imgheight;
 
-	    },
-	    onImageDrag: function(imageObject, position){
-	      // Get dragged image coordinates
-	      $('#drag_x').val(position.posX);
-	      $('#drag_y').val(position.posY);
-	      // Set zoom x-y coordinates to zero when image is dragged
-	      $('#zoom_x').val(0);
-	      $('#zoom_y').val(0);
-	    }
-	    
-	  }
+    	if (document.getElementById("myCanvas") !== null ) {
+    		document.getElementById("myCanvas").width = canvasWidth;
+    	}
 
-	});
+    	if (document.getElementById("myCanvas") !== null ) {
+    		document.getElementById("myCanvas").height = canvasHeight;
+    	}
+    	
+      var selectorWidth = 150;
+      if(canvasWidth > canvasHeight)
+        selectorWidth = canvasHeight - 40;
+      else
+        selectorWidth = canvasWidth - 40;
+    	var cropzoom = $('#crop_container').cropzoom({ 
+    	  width:canvasWidth,
+    	  height:canvasHeight,
+    	  bgColor: '#CCC',
+    	  enableRotation:true,
+    	  enableZoom:false,
+    	  zoomSteps:10,
+    	  rotationSteps:10,
+    	  selector:{
+    	  	w: selectorWidth,
+            h: selectorWidth,
+    	    centered:true,
+    	    startWithOverlay: true,
+    	    borderColor:'blue',
+    	    borderColorHover:'yellow'
+    	  },
+    	  image:{
+    	    source:$('#img-profile-source').attr('src'),
+    	    width:$('#img-profile-source').width,
+    	    height:$('#img-profile-source').height,
+    	    minZoom: 50 ,
+    	    onRotate: function(imageObject, rotate_angle) {
+    	      // Get rotatation angle
+    	      $("#rotation_angle").val(rotate_angle);
+    	    },
+    	    onZoom: function(imageObject, dimensions) {
+    	      // Get zoom coordinates
+    	    
+    	      $('#zoom_w').val(dimensions.w);
+    	      $('#zoom_h').val(dimensions.h);
+    	      $('#zoom_x').val(dimensions.posX);
+    	      $('#zoom_y').val(dimensions.posY);
+
+    	      // Set drag coordinates to zero when image is zoomed
+    	      $('#drag_x').val(0);
+    	      $('#drag_y').val(0);
+
+    	    },
+    	    onImageDrag: function(imageObject, position){
+    	      // Get dragged image coordinates
+    	      $('#drag_x').val(position.posX);
+    	      $('#drag_y').val(position.posY);
+    	      // Set zoom x-y coordinates to zero when image is dragged
+    	      $('#zoom_x').val(0);
+    	      $('#zoom_y').val(0);
+    	    }
+    	    
+    	  }
+
+    	});
+    }
 }
 
 //=require jquery-ui-1.10.3.custom.min
@@ -95,31 +116,12 @@ var cropbuttonclick = function() {
   var ctx = c.getContext("2d");
   var img = document.getElementById("img-profile-source");
 
-  // correct the orientation
-  // var exif = EXIF.readFromBinaryFile(img.src);
-
-  //   switch(exif.Orientation){
-
-  //      case 8:
-  //          ctx.rotate(90*Math.PI/180);
-  //          break;
-  //      case 3:
-  //          ctx.rotate(180*Math.PI/180);
-  //          break;
-  //      case 6:
-  //          ctx.rotate(-90*Math.PI/180);
-  //          break;
-
-
-  //   }
-  // end correction
-  
   var widthRatio = (crop_container.offsetWidth / img.width);
   var heightRatio = (crop_container.offsetHeight / img.height);
   var aspectRatio = widthRatio;
 
-  if(heightRatio < widthRatio)
-  	aspectRatio = heightRatio;
+//  if(heightRatio < widthRatio)
+//   	aspectRatio = heightRatio;
 
   var tsx = $('#crop_x').val().replace("px", "") / aspectRatio;
   var tsy = $('#crop_y').val().replace("px", "") / aspectRatio;
@@ -142,10 +144,9 @@ var cropbuttonclick = function() {
   c.width = crop_container.offsetWidth; c.height = crop_container.offsetHeight;
   ctx.clearRect(0, 0, c.width, c.height);
   //-drawing image
-  ctx.save(); 
- 
+  ctx.save();
   ctx.scale(aspectRatio, aspectRatio);
-  console.log(widthRatio);
+
   ctx.translate(img.width / 2, img.height / 2);
   ctx.rotate(angle * Math.PI / 180);
 	

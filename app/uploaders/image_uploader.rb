@@ -3,6 +3,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
+  process :auto_orient
 
   version :custom_crop do
     process :resize_and_crop
@@ -35,6 +36,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
+    #process :auto_orient
     process resize_to_fit: [50, 50]
   end
 
@@ -44,12 +46,21 @@ class ImageUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
+  def auto_orient
+    manipulate! do |img|
+     img = img.auto_orient
+    end
+  end
+
   def resize_and_crop
 
     if model.class.to_s == "User"
       if model.crop_x.present?
         puts "crop ddd"
         manipulate! do |img|
+          #img.auto_orient!
+          #img = yield(img) if block_given?
+
           w = model.crop_w.to_i
           h = model.crop_h.to_i
 

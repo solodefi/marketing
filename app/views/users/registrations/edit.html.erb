@@ -31,7 +31,9 @@
                     <%= image_tag('avatar.png', id: "img-profile-source", alt: "", class: "hidden") %>
                   <% end %>
                   
-                  <canvas id="myCanvas" class="hidden"></canvas>
+                  
+                  <canvas id="myCanvasOrientationFix" class="hidden"></canvas>
+                  <img id = "img-profile-source-tmp" class="hidden"></img>
                   <div id="crop_container">
                     
                   </div>
@@ -41,7 +43,7 @@
                       <%= f.hidden_field attribute, :id => attribute %>
                     <% end %>
                   </div>
-                  <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>
+                  <%= f.file_field :image, class: 'photo_upload', id: 'avatar-upload' %>                  
                 </div>
                 <div class="modal-footer">
                   <button type="button" onclick="cropbuttonclick()" class="btn btn-default" data-dismiss="modal">Done</button>
@@ -50,6 +52,8 @@
             </div>
           </div>        
         </div>
+
+        <canvas id="myCanvas" class="hidden"></canvas>
 
         <div class="form-group">
           <%= f.label :first_name, "FIRST NAME" %>
