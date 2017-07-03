@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    resource.image.recreate_versions! if resource.image?
+    resource.image.recreate_versions if resource.image?
   end
 
   # GET /resource/edit
@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     resource.update_without_password(user_params)
     
-    resource.image.recreate_versions! if resource.image?
+    resource.image.recreate_versions if resource.image?
 
     redirect_to path_to_redirect
   end
