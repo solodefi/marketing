@@ -1,0 +1,30 @@
+Hi <%= @user.name %>,
+
+Thanks for registering! To confirm your registration click the URL below.
+
+<style>
+ .button {
+ border: none;
+ background: #777;
+ color: #fff;
+ padding: 10px;
+ display: inline-block;
+ margin: 10px 0px;
+ font-family: Helvetica, Arial, sans-serif;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ border-radius: 3px;
+ text-decoration: none;
+ }
+ 
+ .button:hover {
+ color: #fff;
+ background: #666;
+ }
+</style>
+ <br>
+<%= link_to "Verify Email", confirm_email_url(:confirm_token => @user.confirm_token) , :method => :get, :class => "button" %>
+<br>
+Also you can browse this url to verify your email address.
+
+<%= confirm_email_url(:confirm_token => @user.confirm_token) %>

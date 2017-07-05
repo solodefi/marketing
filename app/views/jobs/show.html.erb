@@ -46,7 +46,19 @@
         <span><%= @job.postcode %></span>
       </div>
     </div>
-    
+
+     <div class = "row">
+      <div class="col-md-12">
+        <span class="less-highlight">Attachments : </span>
+        <br>
+        <% @job.attachments.each do |a|%>
+          <span class="glyphicon glyphicon-paperclip"></span>
+          <%= link_to a.path.split("/").last, download_file_jobs_path(:attchmentpath => a.path), method: 'post' %>
+          <br>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -54,80 +66,81 @@
 
   <% if @job.proposals.count > 0 %>
     <% @job.proposals.each do |proposal| %>
-      <div class="custom-table-cell">
-        <div class="row">
+      <% if current_user.user_type == 'Client' || current_user.id == proposal.user_id %>
+        <div class="custom-table-cell">
+          <div class="row">
 
-          <div class="col-md-2">
-            <div class="profile-header-container">
-              <div class="profile-header-img">
-                <%= show_avatar(proposal.user, "avatar-circle") %>
-              </div>
-            </div> 
-          </div>
-          
-          <div class="col-md-10">
-
-            <div class="row">
-              <div class="col-md-12">
-                <% if current_user.id == @job.user_id %>
-                  <%= link_to proposal.user.name, proposal, {method: :get, class: "custom-table-cell-title-link"} %>
-                <% else %>
-                  <h3><%= proposal.user.name %><h3>
-                <% end %>
-              </div>
+            <div class="col-md-2">
+              <div class="profile-header-container">
+                <div class="profile-header-img">
+                  <%= show_avatar(proposal.user, "avatar-circle") %>
+                </div>
+              </div> 
             </div>
+            
+            <div class="col-md-10">
 
-            <div class="row">
-              <div class="col-md-3">
-                <span class="less-highlight">Budget : </span>
-                <span>£<%= proposal.price %></span>
+              <div class="row">
+                <div class="col-md-12">
+                  <% if current_user.id == @job.user_id %>
+                    <%= link_to proposal.user.name, proposal, {method: :get, class: "custom-table-cell-title-link"} %>
+                  <% else %>
+                    <h3><%= proposal.user.name %><h3>
+                  <% end %>
+                </div>
               </div>
-              <div class="col-md-6">
-                <span class="glyphicon glyphicon-calendar"></span>
-                <span class="less-highlight">Time : </span>
-                <span><%= proposal.time_duration %></span>
-              </div>
-              <div class="col-md-3">
-                <span class="glyphicon glyphicon-time"></span>
-                <span class="less-highlight">Submitted :</span>
-                <span><%= time_ago_in_words(proposal.created_at) %></span>
-                <span class="less-highlight">ago</span>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <p class="custom-table-cell-description"><%= proposal.description %></p>
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="less-highlight">Budget : </span>
+                  <span>£<%= proposal.price %></span>
+                </div>
+                <div class="col-md-6">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                  <span class="less-highlight">Time : </span>
+                  <span><%= proposal.time_duration %></span>
+                </div>
+                <div class="col-md-3">
+                  <span class="glyphicon glyphicon-time"></span>
+                  <span class="less-highlight">Submitted :</span>
+                  <span><%= time_ago_in_words(proposal.created_at) %></span>
+                  <span class="less-highlight">ago</span>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <span class="less-highlight">Category : </span>
-                <span><%= proposal.user.profession %></span>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class="custom-table-cell-description"><%= proposal.description %></p>
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <span class="glyphicon glyphicon-map-marker"></span>
-                <span class="less-highlight">Location : </span>
-                <span><%= proposal.user.postcode %></span>
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="less-highlight">Category : </span>
+                  <span><%= proposal.user.profession %></span>
+                </div>
               </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <span class="glyphicon glyphicon-map-marker"></span>
+                  <span class="less-highlight">Location : </span>
+                  <span><%= proposal.user.postcode %></span>
+                </div>
+              </div>
+
             </div>
 
           </div>
 
         </div>
-
-      </div>
+      <% end %>
     <% end %>
   <% else %>
     <div class="no-content-fill">
       <h3> No proposal ... </h3>
     </div>
   <% end %>
-
   
 
 </div>

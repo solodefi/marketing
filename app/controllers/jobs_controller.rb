@@ -36,7 +36,7 @@ class JobsController < EndUserBaseController
   # POST /jobs
   def create
     @job = Job.new(job_params)
-
+    @attachments = job_params[:attachments]
     @job.user_id = current_user.id
 
     respond_to do |format|
@@ -148,6 +148,11 @@ class JobsController < EndUserBaseController
 
   def browse_job_details
   end
+  def download_file
+    send_file( params[:attchmentpath],
+              :disposition => 'attachment',
+              :url_based_filename => false)      
+  end
 
   def in_progress_by_freelancer
     @jobs = Array.new
@@ -184,7 +189,7 @@ private
 
   # Strong params
   def job_params
-    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :profession_id, :category_ids => [])
+    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :profession_id, :category_ids => [], :attachments => [])
   end
 
   def hire_freelancer_params

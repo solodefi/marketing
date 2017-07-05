@@ -68,6 +68,15 @@
       <p class="custom-table-cell-description"><%= @proposal.description %></p>
     </div>
 
+    <br>
+    <div class="col-md-12">
+      <h3>Attachments: </h3>    
+      <% @proposal.attachments.each do |a|%>
+        <span class="glyphicon glyphicon-paperclip"></span>
+        <%= link_to a.path.split("/").last, download_file_jobs_path(:attchmentpath => a.path), method: 'post' %>
+        <br>
+      <% end %>
+    </div>
   </div>
 
   <div class="custom-table-cell row">

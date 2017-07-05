@@ -33,6 +33,19 @@
       <span><%= @job.postcode %></span>
     </div>
   </div>
+
+  <div class = "row">
+    <div class="col-md-12">
+      <span class="less-highlight">Attachments : </span>
+      <br>
+      <% @job.attachments.each do |a|%>
+        <span class="glyphicon glyphicon-paperclip"></span>
+        <%= link_to a.path.split("/").last, download_file_jobs_path(:attchmentpath => a.path), method: 'post' %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+  
 </div>
 
 <div class="container">

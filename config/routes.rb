@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       }
 
   devise_scope :user do 
+    get '/confirm_email', :action => 'confirm_email', :controller => 'users/confirmations'
+    get '/verification_email', :action => 'verification_email', :controller => 'users/registrations'
     get '/fill_profile', :action => 'fill_profile', :controller => 'users/registrations'
     post '/update_profile_after_sign_up', :action => 'update_profile_after_sign_up', :controller => 'users/registrations'
 
@@ -41,9 +43,11 @@ Rails.application.routes.draw do
     collection do
       get :how_it_works
       get :contact_us
+      get :invite_friends
       get :privacy_policy
       get :terms
       post :send_contact_us_message
+      post :send_invite_friends_message
     end
   end
 
@@ -84,6 +88,7 @@ Rails.application.routes.draw do
 
   resources :jobs do
     collection do
+      post :download_file
       get :job_search
       get :browse
       get :browse_job_details

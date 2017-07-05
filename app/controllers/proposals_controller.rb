@@ -61,6 +61,6 @@ private
   end
 
   def proposal_params
-    params.require(:proposal).permit(:price, :description, :start_date, :end_date)
+    params.require(:proposal).permit(:price, :description, :start_date, :end_date, :attachments => [])
   end
 end

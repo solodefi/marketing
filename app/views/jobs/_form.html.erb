@@ -3,7 +3,7 @@
   </br>
   <h1 align="center">Get Your Job Done!</h1>
   </br>
-  <%= form_for(job) do |f| %>
+  <%= form_for job, html: { multipart: true } do |f|%>
     <% if job.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -62,6 +62,18 @@
         <div class="form-group" >
           <%= f.label "End by?" %><i>(optional)</i>
           <%= f.date_field :end_date, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <span class="glyphicon glyphicon-paperclip"></span>
+          <%= f.label "Attachments" %>
+          <%= f.file_field :attachments, :multiple => true, class: "photo_upload", id: "attachments-upload" %>
+          <div id = "job_attachment_div" class = "well well-sm">
+            <% job.attachments.each do |a|%>
+              <%= a.path.split("/").last %>
+              <br>             
+            <% end %>
+          </div>
         </div>
         
         <br>

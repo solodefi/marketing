@@ -23,6 +23,8 @@ class Job < ApplicationRecord
 	scope :title, -> (title) { where("lower(title) like ?", "%#{title.downcase}%") }
 	scope :category, -> (category_id) { where("category_ids like ?", "%#{category_id}%") }
 
+	mount_uploaders :attachments, AttachmentUploader
+
 	def spent
 		success_transactions = self.transactions.where(status: "success", sender_id: self.user_id)
 

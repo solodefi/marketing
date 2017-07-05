@@ -1,6 +1,6 @@
 <div class = "container" id = "job_form">
   <div class="col-lg">
-  <%= form_for(proposal) do |f| %>
+  <%= form_for proposal, html: { multipart: true } do |f| %>
     <% if proposal.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
@@ -35,7 +35,19 @@
           <%= f.label "End by?" %><i>(optional)</i>
           <%= f.date_field :end_date, class: "form-control"%>
         </div>
-        
+
+        <div class="form-group">
+          <span class="glyphicon glyphicon-paperclip"></span>
+          <%= f.label "Attachments" %>
+          <%= f.file_field :attachments, :multiple => true, class: "photo_upload", id: "proposal-attachments-upload" %>
+          <div id = "proposal_attachment_div" class = "well well-sm">
+            <% proposal.attachments.each do |a|%>
+              <%= a.path.split("/").last %>
+              <br>
+            <% end %>
+          </div>
+        </div>
+
         <br>
         <div class="form-group" id = "button">
           <%= f.submit class: "btn btn-success" %>

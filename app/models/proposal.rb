@@ -6,6 +6,8 @@ class Proposal < ApplicationRecord
 
   validates :description, presence: true, allow_blank: false
 
+  mount_uploaders :attachments, AttachmentUploader
+
   def time_duration
     str_to_show = ""
     if self.start_date.present? && self.end_date.present?

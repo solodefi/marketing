@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  #verification insert
+  before_create :confirmation_token
+  #verification insert end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,8 +17,8 @@ class User < ApplicationRecord
   has_many :sent_transactions, :class_name => "Transaction", :foreign_key => :sender_id, dependent: :destroy
   has_many :received_transactions, :class_name => "Transaction", :foreign_key => :recipient_id, dependent: :destroy
 
-  has_many :withdraws
-  has_many :deposits
+  has_many :withdraws, dependent: :destroy
+  has_many :deposits, dependent: :destroy
 
   belongs_to :profession
   serialize :skills, Array
@@ -49,5 +52,9 @@ class User < ApplicationRecord
     total_withdraws = self.withdraws.sum(:amount)
     available_balance = total_earned - total_withdraws
   end
-
+  def confirmation_token
+      if self.confirm_token.blank?
+          self.confirm_token = SecureRandom.urlsafe_base64.to_s
+      end
+   end
 end

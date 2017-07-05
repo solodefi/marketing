@@ -1,0 +1,27 @@
+<% if @user.present? %>
+	<div class="container">
+		<h1> Account created</h1>
+		Thank you for creating an account and welcome to structured-thinking.co.uk
+		<div class="col">
+		    <div class="well well-sm">
+				<h3>We just sent you an email</h3>
+				The next step is to verify your email address. Check your inbox for the confirmation email.
+			</div>
+			<div class="well well-sm">
+				<h5>Can't find the conformation email?</h5>
+				Check your spam folder. If you still can't find it please contact our support team.
+			</div>
+			<div class="well well-sm">
+				<div class="row">
+					<div class="col-sm-4">
+						<h5>Email Address : <%= @user.email %></h5>
+					</div>
+					<div class="col-sm-4">
+						<%= button_to "Resend", verification_email_url, :method => :get, :class => "btn btn-success" %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<%	end %>

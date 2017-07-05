@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630023941) do
+ActiveRecord::Schema.define(version: 20170705145007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170630023941) do
     t.datetime "started_at"
     t.datetime "ended_at"
     t.integer  "freelancer_id"
+    t.json     "attachments"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -118,6 +119,7 @@ ActiveRecord::Schema.define(version: 20170630023941) do
     t.boolean  "read",            default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.json     "attachments"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
     t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
   end
@@ -137,6 +139,7 @@ ActiveRecord::Schema.define(version: 20170630023941) do
     t.integer  "user_id",     default: 0,  null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.json     "attachments"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -175,6 +178,8 @@ ActiveRecord::Schema.define(version: 20170630023941) do
     t.text     "skills"
     t.integer  "profession_id"
     t.string   "get_paid_email"
+    t.boolean  "email_confirmed"
+    t.string   "confirm_token"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

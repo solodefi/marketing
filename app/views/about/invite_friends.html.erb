@@ -1,0 +1,29 @@
+<div class="jumbotron text-center">
+  <h1>Invite a Friend</h1>
+  <p>Feel free to invite a friend</p> 
+</div>
+
+<div class="container">
+   
+
+    <div class="custom-container row">
+        <%= form_for(@message, url: send_invite_friends_message_about_index_path) do |f| %>
+            <div class="form-group col-md-12">
+                <%= f.label :email, "Email Address" %>
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Enter email", required: true %>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <%= f.label :content, "Message" %>
+                <%= f.text_area :content, autofocus: true, class: "form-control", placeholder: "Message", rows: 9, required: true %>
+            </div>
+            <div class="form-group col-md-12">
+                <%= f.submit "Send Message", class: "btn btn-warning pull-right" %>
+            </div>
+        <% end %>
+    </div>
+       
+
+</div>

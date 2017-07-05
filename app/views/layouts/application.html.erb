@@ -14,10 +14,16 @@
 
 
   <body>
+  <% if current_user.present? && ( ( current_user.email_confirmed? && current_user.email_confirmed == false ) || ( !current_user.email_confirmed? ) ) %>
+    <div class="container-fluid <%= controller.controller_name %>">
+      <%= yield %>
+    </div>
+  <% else %>
     <%= render 'shared/navbar' %>
     <div class="container-fluid <%= controller.controller_name %>">
       <%= yield %>
     </div>
     <%= render 'shared/footer' %>
+  <% end %>
   </body>
 </html>
