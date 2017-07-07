@@ -72,7 +72,7 @@ Rails.application.configure do
   }
 
   config.action_mailer.default_url_options = {
-    host: "structured-thinking.co.uk", port:3000
+    host: "structured-thinking.co.uk"
   }
 
   config.action_mailer.perform_deliveries = true
