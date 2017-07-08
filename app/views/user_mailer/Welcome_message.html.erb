@@ -1,0 +1,37 @@
+<style>
+.button {
+
+  border: none;
+  background: #14c59c;
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+  margin: 10px 0px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 1200;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+ 
+.button:hover {
+  color: #fff;
+  background: #04a230;
+}
+</style>
+
+
+<div style="text-align: center;">
+  <h2 style="text-align: center;">Hello <%= @user.name %>, </h2>
+
+	<p style="text-align: center;">Welcome to Structured Thinking. If you are planning an extension, home improvements or moving house, we have the professionals to take your project from start to finish.</p>
+	<br>
+	<%if @user.user_type == "Client" %>
+	  <%= link_to "Post a Job", new_job_url , :method => :get, :class => "button" %>
+	<%elsif @user.user_type == "Freelancer"%>
+	  <%= link_to "Browse Jobs", browse_jobs_url, :method => :get, :class => "button" %>
+	<%end%>
+
+</div>
