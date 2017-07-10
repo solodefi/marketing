@@ -1,4 +1,6 @@
-<h5><<%= @message.email %>> Your friend <strong><%=@user.name%></strong> invited you to <a href="http://structured-thinking.co.uk">structured thinking:</a> </h5>
-
-
+<%  if @user.present? %>
+  <h5><<%= @message.email %>> Your friend <strong><%=@user.name%></strong> invited you to <a href="http://structured-thinking.co.uk">structured thinking:</a> </h5>
+<% else %>
+  <h5><<%= @message.email %>> Structured-thinking invited you to <a href="http://structured-thinking.co.uk">structured thinking:</a> </h5>
+<%end%>
 <p><%= @message.content %></p>
