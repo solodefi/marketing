@@ -1,3 +1,8 @@
+<head>
+  <meta name="title" content="Messages">
+  <meta name="description" content="Making messages for architects, surveyors and structural engineers.">
+  <meta name="keywords" content="message, freelance architects, loft conversion">
+</head>
 <div class="container custom-container" style="text-align: center;">
   <% if @conversation.sender_id == current_user.id %>
     <% recipient = User.find(@conversation.recipient_id) %>

@@ -1,8 +1,12 @@
+<head>
+  <meta name="title" content="get started">
+  <meta name="description" content="This page is shown by the new visitors of structured-thinking.">
+  <meta name="keywords" content="structured-thinking, Loft conversion, Basement">
+</head>
 <div class = "container" id = "getstarted_form">
   <div class="panel panel-default">
     <div class="panel-heading">
-    <%= form_for(@user, url: signup_user_and_post_job_homepage_index_path) do |u| %>
-
+    <%= form_for(@user, html: { multipart: true }, url: signup_user_and_post_job_homepage_index_path) do |u| %>
     <%= fields_for @job do |j| %>
     </br>
     <h2 align="center">Get Your Job Done!</h2>
@@ -76,6 +80,13 @@
     </div>
     
     <br>
+    <div class="form-group">
+      <span class="glyphicon glyphicon-paperclip"></span>
+      <%= j.label "Attachments" %>
+      <%= j.file_field :attachments, :multiple => true, class: "photo_upload", id: "attachments-upload" %>
+      <div id = "job_attachment_div" class = "well well-sm">
+      </div>
+    </div>
     <% end %>
 
     <h2 align="center">Please input your details</h2>
@@ -111,7 +122,7 @@
         <%= u.password_field :password_confirmation, autocomplete: "off", class: "form-control" , placeholder: "Password confirm", required: true %>
       </div>  
     </div>
-
+   
     <div class="form-group" id = "button">
       <%= u.submit "POST A JOB", class: "btn btn-success" %>
     </div>

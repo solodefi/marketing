@@ -21,7 +21,6 @@ class HomepageController < ApplicationController
 
     @user = User.new(user_params)
     @job = Job.new(job_params)
-
     respond_to do |format|
       @user.user_type = "Client"
 
@@ -42,7 +41,7 @@ class HomepageController < ApplicationController
   end
 
   def job_params
-    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :profession_id, :category_ids => [])
+    params.require(:job).permit(:title, :price, :description, :postcode, :start_date, :end_date, :user_id, :profession_id, :category_ids => [], :attachments => [])
   end
 
   def user_params
