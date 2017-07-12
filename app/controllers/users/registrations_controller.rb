@@ -24,9 +24,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     puts "verification_email_action is called"
   end
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+   def edit
+    @portfolio= Portfolio.new
+     super
+   end
 
   # PUT /resource
   def update

@@ -8,6 +8,7 @@ end
 
 ruby "2.4.0"
 
+gem "remotipart", "~> 1.0"
 gem 'rails', '~> 5.0.2'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'

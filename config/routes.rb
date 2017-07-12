@@ -42,6 +42,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :portfolio, :only => [:index, :new, :create, :edit, :update, :destroy, :show] do
+    collection do
+      post :on_portfolio_edit
+      post :on_portfolio_add
+    end
+  end
+
   resources :about, :only => [:index] do 
     collection do
       get :how_it_works

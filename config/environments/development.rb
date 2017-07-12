@@ -33,13 +33,14 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: "smtp.office365.com",
     port: 587,
     domain: "structured-thinking.co.uk",
-    user_name: "akiradeves@gmail.com",
-    password: "!!!Nysoch1",
-    authentication: :plain,
+    user_name: "Info@structured-thinking.co.uk",
+    password: "Rama#1729",
+    authentication: :login,
     enable_starttls_auto: true
   }
 

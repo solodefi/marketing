@@ -7,6 +7,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  #portfolios
+  has_many :portfolios, dependent: :destroy
   # Jobs that you posted
   has_many :jobs, dependent: :destroy
   # Proposals that you sent
@@ -40,7 +42,7 @@ class User < ApplicationRecord
   end
 
   def name
-    return self.first_name + " " + self.last_name
+    return self.first_name + " " + self.last_name[0,1] + '.'
   end
 
   def to_s

@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
 //= require select2
 //= require_tree .
