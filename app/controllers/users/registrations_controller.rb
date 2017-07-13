@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   # GET /resource/edit
    def edit
-    @portfolio= Portfolio.new
+      @portfolio = Portfolio.new
      super
    end
 
@@ -74,6 +74,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Show Fill Profile Form for freelancer
   def fill_profile
+    @portfolio = Portfolio.new
     @user = current_user
   end
 
@@ -82,21 +83,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @user.update_without_password(user_params)
 
-    redirect_to browse_jobs_url
+    redirect_to verification_email_url
   end
 
   protected
   
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    if current_user.email_confirmed
-      if current_user.user_type == "Client"
-        return path_to_redirect
-      elsif current_user.user_type == "Freelancer"
+    if current_user.user_type == "Client"
+        return verification_email_url
+    elsif current_user.user_type == "Freelancer"
         return fill_profile_url
-      end
-    else
-      return verification_email_url
     end
   end
 

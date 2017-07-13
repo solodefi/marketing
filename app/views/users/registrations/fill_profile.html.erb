@@ -38,7 +38,15 @@
           <%= f.label :overview, "OVERVIEW" %>
           <%= f.text_area :overview, autofocus: true, class: "form-control" , placeholder: "Please describe your skills, your experience and the types of job you are looking for.  A more detailed description will help you find more jobs.", rows: 20, required: true %>
         </div>
-        
+       <div class="form-group">
+          <%= f.label :portfolios, "Portfolio" %>
+          <%= link_to new_portfolio_path, {:remote => true, 'data-target' => "#portfolio-dialog", 'data-toggle' => "modal"} do%>
+            <span class="glyphicon glyphicon-plus-sign"></span>
+          <%end%>
+          <div id = "all_portfolios" class="container">
+            <%= render 'portfolio/show' %>
+          </div>
+        </div>
         <br>
         <div class="form-group" id = "button">
           <%= f.submit "Get Started", class: "btn btn-success" %>
@@ -47,4 +55,7 @@
     </div>
   <% end %>
   </div>
+</div>
+<div id="portfolio-dialog" class="modal fade" role="dialog">
+  <%= render 'portfolio/remotedialog' %>
 </div>

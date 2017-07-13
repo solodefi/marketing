@@ -106,9 +106,11 @@
 
           <div class="form-group">
             <%= f.label :portfolios, "Portfolio" %>
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#portfolio-dialog">New Portfolio</button>
-            <div id = "all_portfolios">
-              <%= render 'portfolio/on_portfolio_add' %>
+            <%= link_to new_portfolio_path, {:remote => true, 'data-target' => "#portfolio-dialog", 'data-toggle' => "modal"} do%>
+              <span class="glyphicon glyphicon-plus-sign"></span>
+            <%end%>
+            <div id = "all_portfolios" class="container">
+              <%= render 'portfolio/show' %>
             </div>
           </div>
 
@@ -125,83 +127,6 @@
 </div>
 
 <div id="portfolio-dialog" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <%= form_for @portfolio, :url => on_portfolio_add_portfolio_index_url, :method => :post, html: { multipart: true }, :remote => true do |portfolio| %>
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Fill Portfolio</h4>
-        </div>
-        <div class="modal-body">
-          <%= portfolio.label :title, "Project Title" %>
-          <%= portfolio.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter project title", required: true %>
-          <%= portfolio.label :overview, "Project Overview" %>
-          <%= portfolio.text_area :overview, class: "form-control", placeholder: "Enter project title", required: true %>
-          <%= portfolio.file_field :image, class: 'photo_upload', id: 'image-upload' %>
-          <div id = "portfolio_picture_div" class = "well well-sm">
-          </div>
-          <%= portfolio.label :completion_date, "Project Complete Date" %>
-          <%= portfolio.date_field :completion_date, class: "form-control" %>
-          <div class="form-group col-md-6">
-            <%= portfolio.label "Profession" %><i>(optional)</i>
-            </br>
-            <%= portfolio.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#job_profession_id').val()"}, :job_category_ids) } %>
-          </div>
-          <div class="form-group col-md-6">
-            <%= portfolio.label "Category" %><i>(optional)</i>
-            </br>
-            <% if portfolio.object.profession_id.present? && !portfolio.object.new_record? %>
-              <%= portfolio.select :category_ids, Profession.find_by_id(portfolio.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
-            <% else %>
-              <%= portfolio.select :category_ids, {}, {}, { multiple: true, class: "dropdown form-control" } %>
-            <% end %>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <%= portfolio.submit "New Portfolio Button", class: "btn btn-success"%>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'portfolio/remotedialog' %>
 </div>
 
-<div id="edit-portfolio" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <%= form_for @portfolio, :url => on_portfolio_edit_portfolio_index_url, :method => :post, html: { multipart: true }, :remote => true do |portfolio| %>
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Fill Portfolio</h4>
-        </div>
-        <div class="modal-body">
-          <%= portfolio.label :title, "Project Title" %>
-          <%= portfolio.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter project title", required: true %>
-          <%= portfolio.label :overview, "Project Overview" %>
-          <%= portfolio.text_area :overview, class: "form-control", placeholder: "Enter project title", required: true %>
-          <%= portfolio.file_field :image, class: 'photo_upload', id: 'image-upload' %>
-          <div id = "portfolio_picture_div" class = "well well-sm">
-          </div>
-          <%= portfolio.label :completion_date, "Project Complete Date" %>
-          <%= portfolio.date_field :completion_date, class: "form-control" %>
-          <div class="form-group col-md-6">
-            <%= portfolio.label "Profession" %><i>(optional)</i>
-            </br>
-            <%= portfolio.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#job_profession_id').val()"}, :job_category_ids) } %>
-          </div>
-          <div class="form-group col-md-6">
-            <%= portfolio.label "Category" %><i>(optional)</i>
-            </br>
-            <% if portfolio.object.profession_id.present? && !portfolio.object.new_record? %>
-              <%= portfolio.select :category_ids, Profession.find_by_id(portfolio.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "dropdown form-control"} %>
-            <% else %>
-              <%= portfolio.select :category_ids, {}, {}, { multiple: true, class: "dropdown form-control" } %>
-            <% end %>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <%= portfolio.submit "New Portfolio Button", class: "btn btn-success"%>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>

@@ -30,6 +30,7 @@
                         y: 0,
                         w: 150,
                         h: 150,
+                        type: 1,
                         aspectRatio: true,
                         centered: false,
                         borderColor: 'yellow',
@@ -127,6 +128,7 @@
                 setData(
                     'selector',
                     {
+                        type: $options.selector.type,
                         x: $options.selector.x,
                         y: $options.selector.y,
                         w: ($options.selector.maxWidth != null ? ($options.selector.w > $options.selector.maxWidth ? $options.selector.maxWidth
@@ -517,7 +519,7 @@
                         .attr('id', _self[0].id + '_selector')
                         .css(
                         {
-                            'border-radius': getData('selector').w / 2 ,
+                            'border-radius': getData('selector').type * getData('selector').w / 2 ,
                             'width': getData('selector').w,
                             'height': getData('selector').h,
                             'top': getData('selector').y
@@ -598,7 +600,7 @@
                                 $(this)
                                 .css(
                                 {
-                                    'border-radius': getData('selector').w / 2
+                                    'border-radius': getData('selector').type * getData('selector').w / 2
                                 })
                             },
                             stop: function (event, ui) {

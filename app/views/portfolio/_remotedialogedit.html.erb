@@ -1,0 +1,56 @@
+<div class="modal-dialog">
+    <%= form_for @portfolio, :url => portfolio_url(@portfolio), :method => :put, html: { multipart: true }, :remote => true do |portfolio| %>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Portfolio</h4>
+        </div>
+        <div class="modal-body">
+          <div class= "">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="form-group">
+                  <%= portfolio.label :title, "Project Title" %>
+                  <%= portfolio.text_field :title, autofocus: true, class: "form-control", placeholder: "Enter project title", required: true %>
+                </div>
+                <div class="form-group">
+                  <%= portfolio.label :overview, "Project Overview" %>
+                  <%= portfolio.text_area :overview, class: "form-control", placeholder: "Enter project title", required: true %>
+                </div>
+                <div class="form-group">
+                  <%= portfolio.label :image, "Project Image" %>
+                  <%= portfolio.file_field :image, class: 'photo_upload', id: 'image-upload' %>
+                </div>
+                <div class="form-group">
+                  <%= portfolio.label :completion_date, "Project Complete Date" %>
+                  <%= portfolio.date_field :completion_date, class: "form-control" %>
+                <div class="">
+                  <div class="form-group">
+                    <%= portfolio.label "Profession" %><i>(optional)</i>
+                    </br>
+                    <%= portfolio.select :profession_id, Profession.all.collect{|p| [p.title, p.id]}, {:include_blank => true}, {class: "dropdown form-control", :onchange => remote_request(:post, '/change_categories', {:profession_id=>"$('#portfolio_profession_id').val()"}, :portfolio_category_ids) } %>
+                  </div>
+                  <div class="form-group">
+                    <%= portfolio.label "Category" %><i>(optional)</i>
+                    <% if portfolio.object.profession_id.present? && !portfolio.object.new_record? %>
+                      <%= portfolio.select :category_ids, Profession.find_by_id(portfolio.object.profession_id).try(:categories).collect{|c| [c.title, c.id]}, {}, {multiple: true, class: "portfolio-categories form-control"} %>
+                    <% else %>
+                      <%= portfolio.select :category_ids, {}, {}, { multiple: true, class: "portfolio-categories form-control" } %>
+                    <% end %>
+                    <script>
+                    $(".portfolio-categories").select2({
+                       theme: "bootstrap"
+                     });
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= portfolio.submit "Update", class: "btn btn-success", :onclick => "return portfoliocropbuttonclick()" %>
+        </div>
+      </div>
+    <% end %>
+</div> 

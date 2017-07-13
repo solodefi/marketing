@@ -48,7 +48,7 @@ class PortfolioUploader < CarrierWave::Uploader::Base
 
   def resize_and_crop
 
-    if model.class.to_s == "User"
+    if model.class.to_s == "Portfolio"
       if model.crop_x.present?
         puts "crop ddd"
         manipulate! do |img|

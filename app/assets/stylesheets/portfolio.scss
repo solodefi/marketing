@@ -1,3 +1,15 @@
 // Place all the styles related to the Portfolio controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.portimg{
+  width:300px;
+  height:300px;
+  position:relative;
+  overflow:hidden;
+}
+.portimg-mobile{
+    width:150px;
+    height:150px;
+    position:relative;
+    overflow:hidden;
+}

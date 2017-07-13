@@ -7,12 +7,6 @@
         </div>
         <div class = "col">
           <%= portfolio.title %>
-          <%= link_to edit_portfolio_path(portfolio), {:remote => true, 'data-target' => "#portfolio-dialog", 'data-toggle' => "modal"} do%>
-            <span class="glyphicon glyphicon-pencil"></span>
-          <% end %>
-          <%= link_to portfolio_path(portfolio), {:remote => true, :method => :delete , data: {confirm: 'Are you sure?'}} do%>
-            <span class="glyphicon glyphicon-trash"></span>
-          <% end %>
         </div>
       </div> 
     </div>

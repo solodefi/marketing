@@ -27,6 +27,7 @@ ready = function() {
 	  theme: "bootstrap"
 	});
 
+
 }
 
 $(document).ready(ready);
