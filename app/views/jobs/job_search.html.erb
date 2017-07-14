@@ -3,69 +3,70 @@
   <meta name="description" content="Shows all searched jobs of a clients. Both Surveyors and freelance architects can use it.">
   <meta name="keywords" content="planning application, searched jobs , subsidence">
 </head>
-<div class="container">
-  <div class="col-md-12 custom-container">
-    <% if @jobs.count > 0 %>
-      <% @jobs.each do |job| %>
-        <div class="custom-table-cell">
-          <div class="row">
-            <div class="col-md-9">
-              <% if is_applied(job) %>
-                <%= link_to job.title + ' (Applied)', job, {method: :get, class: "custom-table-cell-title-link"}%>
-              <% else %>
-                <%= link_to job.title, browse_job_details_jobs_path(:id => job.id), {method: :get, class: "custom-table-cell-title-link"}%>
-              <% end %>
+<div class= "style-change-window-small">
+  <div class="container">
+    <div class="col-md-12 custom-container">
+      <% if @jobs.count > 0 %>
+        <% @jobs.each do |job| %>
+          <div class="custom-table-cell">
+            <div class="row">
+              <div class="col-md-9">
+                <% if is_applied(job) %>
+                  <%= link_to job.title + ' (Applied)', job, {method: :get, class: "custom-table-cell-title-link"}%>
+                <% else %>
+                  <%= link_to job.title, browse_job_details_jobs_path(:id => job.id), {method: :get, class: "custom-table-cell-title-link"}%>
+                <% end %>
+              </div>
+              <div class="col-md-3"></div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="row">
+              <div class="col-md-3">
+                <span class="less-highlight">Budget : </span>
+                <span>£<%= job.price %></span>
+              </div>
+              <div class="col-md-6">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span class="less-highlight">Time : </span>
+                <span><%= job.time_duration %></span>
+              </div>
+              <div class="col-md-3">
+                <span class="glyphicon glyphicon-time"></span>
+                <span class="less-highlight">Posted</span>
+                <span><%= time_ago_in_words(job.created_at) %></span>
+                <span class="less-highlight">ago</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="custom-table-cell-description"><%= job.description %></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <span class="less-highlight">Category : </span>
+                <span><%= job.str_categories %></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <span class="glyphicon glyphicon-record"></span>
+                <span class="less-highlight">Proposals : </span>
+                <span><%= job.proposals.count %></span>
+              </div> 
+              <div class="col-md-6">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span class="less-highlight">Location : </span>
+                <span><%= job.postcode %></span>
+              </div>
+            </div>
           </div>
-          <div class="row">
-            <div class="col-md-3">
-              <span class="less-highlight">Budget : </span>
-              <span>£<%= job.price %></span>
-            </div>
-            <div class="col-md-6">
-              <span class="glyphicon glyphicon-calendar"></span>
-              <span class="less-highlight">Time : </span>
-              <span><%= job.time_duration %></span>
-            </div>
-            <div class="col-md-3">
-              <span class="glyphicon glyphicon-time"></span>
-              <span class="less-highlight">Posted</span>
-              <span><%= time_ago_in_words(job.created_at) %></span>
-              <span class="less-highlight">ago</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <p class="custom-table-cell-description"><%= job.description %></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <span class="less-highlight">Category : </span>
-              <span><%= job.str_categories %></span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <span class="glyphicon glyphicon-record"></span>
-              <span class="less-highlight">Proposals : </span>
-              <span><%= job.proposals.count %></span>
-            </div> 
-            <div class="col-md-6">
-              <span class="glyphicon glyphicon-map-marker"></span>
-              <span class="less-highlight">Location : </span>
-              <span><%= job.postcode %></span>
-            </div>
-          </div>
+        <% end %>
+      <% else %>
+        <div class="no-content-fill">
+          <h3> No job ... </h3>
         </div>
       <% end %>
-    <% else %>
-      <div class="no-content-fill">
-        <h3> No job ... </h3>
-      </div>
-    <% end %>
-    
+      
+    </div> 
   </div>
-  
 </div>

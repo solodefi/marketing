@@ -27,7 +27,10 @@ ready = function() {
 	  theme: "bootstrap"
 	});
 
-
+    if (window.innerWidth < 500) {
+      $('.style-change-window-small').addClass('profile-header-container');
+      $('.container').addClass('profile-header-container');
+    }
 }
 
 $(document).ready(ready);
